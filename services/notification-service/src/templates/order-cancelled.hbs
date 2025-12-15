@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Order Cancelled</title>
+</head>
+<body style="font-family: Arial, sans-serif; padding: 20px; background-color: #f4f4f4;">
+  <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 30px; border-radius: 10px;">
+    <h1 style="color: #333;">Order Cancelled</h1>
+    <p>Your order has been cancelled.</p>
+    
+    <div style="background-color: #f9f9f9; padding: 15px; margin: 20px 0; border-radius: 5px;">
+      <p><strong>Order Number:</strong> {{orderNumber}}</p>
+      <p><strong>Order ID:</strong> {{orderId}}</p>
+      {{#if reason}}
+      <p><strong>Reason:</strong> {{reason}}</p>
+      {{/if}}
+    </div>
+
+    <p>If you didn't request this cancellation, please contact our support team immediately.</p>
+
+    <p style="margin-top: 30px;">
+      <a href="{{appUrl}}/orders/{{orderId}}" style="background-color: #f44336; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; display: inline-block;">View Order Details</a>
+    </p>
+
+    <p style="margin-top: 30px; color: #666; font-size: 12px;">
+      Questions? Contact {{appName}} support.
+    </p>
+  </div>
+</body>
+</html>

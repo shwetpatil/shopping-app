@@ -1,0 +1,14 @@
+import { z } from 'zod';
+
+export const paginationSchema = z.object({
+  query: z.object({
+    page: z.string().optional().default('1').transform(Number),
+    limit: z.string().optional().default('10').transform(Number),
+  }),
+});
+
+export const idParamSchema = z.object({
+  params: z.object({
+    id: z.string().uuid('Invalid ID format'),
+  }),
+});

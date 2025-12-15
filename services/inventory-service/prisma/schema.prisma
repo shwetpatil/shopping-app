@@ -1,0 +1,73 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum ReservationStatus {
+  ACTIVE
+  EXPIRED
+  COMPLETED
+  CANCELLED
+}
+
+model Inventory {
+  id                String   @id @default(uuid())
+  productId         String   @unique
+  sku               String   @unique
+  availableQuantity Int      @default(0)
+  reservedQuantity  Int      @default(0)
+  totalQuantity     Int      @default(0)
+  reorderLevel      Int      @default(10)
+  reorderQuantity   Int      @default(50)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  reservations      StockReservation[]
+  transactions      StockTransaction[]
+
+  @@index([productId])
+  @@index([sku])
+  @@map("inventory")
+}
+
+model StockReservation {
+  id          String            @id @default(uuid())
+  inventoryId String
+  orderId     String            @unique
+  userId      String
+  quantity    Int
+  status      ReservationStatus @default(ACTIVE)
+  expiresAt   DateTime
+  completedAt DateTime?
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  inventory Inventory @relation(fields: [inventoryId], references: [id], onDelete: Cascade)
+
+  @@index([inventoryId])
+  @@index([orderId])
+  @@index([status])
+  @@index([expiresAt])
+  @@map("stock_reservations")
+}
+
+model StockTransaction {
+  id          String   @id @default(uuid())
+  inventoryId String
+  type        String
+  quantity    Int
+  reference   String?
+  notes       String?
+  createdAt   DateTime @default(now())
+
+  inventory Inventory @relation(fields: [inventoryId], references: [id], onDelete: Cascade)
+
+  @@index([inventoryId])
+  @@index([type])
+  @@index([reference])
+  @@map("stock_transactions")
+}

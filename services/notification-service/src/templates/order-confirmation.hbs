@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Order Confirmation</title>
+</head>
+<body style="font-family: Arial, sans-serif; padding: 20px; background-color: #f4f4f4;">
+  <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 30px; border-radius: 10px;">
+    <h1 style="color: #333;">Order Confirmation</h1>
+    <p>Thank you for your order!</p>
+    
+    <div style="background-color: #f9f9f9; padding: 15px; margin: 20px 0; border-radius: 5px;">
+      <p><strong>Order Number:</strong> {{orderNumber}}</p>
+      <p><strong>Order ID:</strong> {{orderId}}</p>
+    </div>
+
+    <h2 style="color: #333;">Order Items:</h2>
+    <table style="width: 100%; border-collapse: collapse;">
+      {{#each items}}
+      <tr style="border-bottom: 1px solid #eee;">
+        <td style="padding: 10px;">{{this.name}}</td>
+        <td style="padding: 10px; text-align: right;">{{this.quantity}} x ${{this.price}}</td>
+      </tr>
+      {{/each}}
+    </table>
+
+    <div style="text-align: right; margin-top: 20px; padding-top: 20px; border-top: 2px solid #333;">
+      <h3>Total: ${{total}}</h3>
+    </div>
+
+    <p style="margin-top: 30px;">
+      <a href="{{appUrl}}/orders/{{orderId}}" style="background-color: #4CAF50; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; display: inline-block;">View Order</a>
+    </p>
+
+    <p style="margin-top: 30px; color: #666; font-size: 12px;">
+      Thank you for shopping with {{appName}}!
+    </p>
+  </div>
+</body>
+</html>

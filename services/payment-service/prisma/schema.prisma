@@ -1,0 +1,79 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum PaymentStatus {
+  PENDING
+  PROCESSING
+  AUTHORIZED
+  CAPTURED
+  FAILED
+  CANCELLED
+  REFUNDED
+  PARTIALLY_REFUNDED
+}
+
+enum PaymentMethod {
+  CREDIT_CARD
+  DEBIT_CARD
+  UPI
+  NET_BANKING
+  WALLET
+  COD
+}
+
+model Payment {
+  id                String        @id @default(uuid())
+  orderId           String        @unique
+  userId            String
+  amount            Decimal       @db.Decimal(10, 2)
+  currency          String        @default("INR")
+  status            PaymentStatus @default(PENDING)
+  paymentMethod     PaymentMethod
+  stripePaymentId   String?       @unique
+  stripeCustomerId  String?
+  idempotencyKey    String        @unique
+  metadata          Json?
+  errorMessage      String?
+  refundAmount      Decimal?      @db.Decimal(10, 2)
+  refundReason      String?
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+
+  statusHistory PaymentStatusHistory[]
+
+  @@index([orderId])
+  @@index([userId])
+  @@index([status])
+  @@index([stripePaymentId])
+  @@map("payments")
+}
+
+model PaymentStatusHistory {
+  id        String        @id @default(uuid())
+  paymentId String
+  status    PaymentStatus
+  notes     String?
+  createdAt DateTime      @default(now())
+
+  payment Payment @relation(fields: [paymentId], references: [id], onDelete: Cascade)
+
+  @@index([paymentId])
+  @@map("payment_status_history")
+}
+
+model IdempotencyLog {
+  id             String   @id @default(uuid())
+  idempotencyKey String   @unique
+  requestHash    String
+  responseData   Json
+  createdAt      DateTime @default(now())
+
+  @@index([idempotencyKey])
+  @@map("idempotency_logs")
+}

@@ -1,0 +1,82 @@
+{
+  "name": "@shopping-app/root",
+  "version": "1.0.0",
+  "description": "B2B e-commerce platform with microfrontend architecture",
+  "private": true,
+  "author": "Shopping App Team",
+  "license": "MIT",
+  "keywords": [
+    "microfrontend",
+    "mfe",
+    "b2b",
+    "ecommerce",
+    "next.js",
+    "typescript",
+    "module-federation"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/shopping-app"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "./start-all.sh",
+    "dev:all": "concurrently \"npm:dev:*\" --kill-others-on-fail",
+    "dev:shell": "cd apps/mfe-shell && npm run dev",
+    "dev:cart": "cd apps/mfe-cart && npm run dev",
+    "dev:products": "cd apps/mfe-products && npm run dev",
+    "dev:reviews": "cd apps/mfe-reviews && npm run dev",
+    "dev:search": "cd apps/mfe-search && npm run dev",
+    "dev:wishlist": "cd apps/mfe-wishlist && npm run dev",
+    "build": "npm run build:packages && npm run build:apps",
+    "build:packages": "npm run build --workspace=packages/*",
+    "build:apps": "npm run build:shell && npm run build:cart && npm run build:products && npm run build:reviews && npm run build:search && npm run build:wishlist",
+    "build:shell": "cd apps/mfe-shell && npm run build",
+    "build:cart": "cd apps/mfe-cart && npm run build",
+    "build:products": "cd apps/mfe-products && npm run build",
+    "build:reviews": "cd apps/mfe-reviews && npm run build",
+    "build:search": "cd apps/mfe-search && npm run build",
+    "build:wishlist": "cd apps/mfe-wishlist && npm run build",
+    "test": "npm run test --workspaces --if-present",
+    "test:watch": "npm run test:watch --workspaces --if-present",
+    "test:coverage": "npm run test:coverage --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present",
+    "lint:fix": "npm run lint:fix --workspaces --if-present",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,yml,yaml}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md,yml,yaml}\"",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "clean": "npm run clean:all",
+    "clean:all": "rm -rf node_modules apps/*/node_modules packages/*/node_modules apps/*/.next apps/*/.turbo packages/*/dist",
+    "clean:cache": "rm -rf apps/*/.next apps/*/.turbo packages/*/dist",
+    "docker:build": "docker-compose -f docker-compose.mfe.yml build",
+    "docker:up": "docker-compose -f docker-compose.mfe.yml up",
+    "docker:up:build": "docker-compose -f docker-compose.mfe.yml up --build",
+    "docker:down": "docker-compose -f docker-compose.mfe.yml down",
+    "docker:logs": "docker-compose -f docker-compose.mfe.yml logs -f",
+    "docker:clean": "docker-compose -f docker-compose.mfe.yml down -v --remove-orphans",
+    "db:seed:all": "./scripts/seed-all.sh",
+    "db:reset:all": "npm run db:seed:all"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^10.1.0",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/node": "^20.10.0",
+    "@typescript-eslint/eslint-plugin": "^6.13.0",
+    "@typescript-eslint/parser": "^6.13.0",
+    "bcryptjs": "^3.0.3",
+    "concurrently": "^8.2.0",
+    "eslint": "^8.54.0",
+    "eslint-config-prettier": "^9.0.0",
+    "prettier": "^3.1.0",
+    "tsx": "^4.21.0",
+    "turbo": "^1.11.0",
+    "typescript": "^5.3.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}

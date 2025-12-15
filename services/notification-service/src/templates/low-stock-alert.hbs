@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Low Stock Alert</title>
+</head>
+<body style="font-family: Arial, sans-serif; padding: 20px; background-color: #f4f4f4;">
+  <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 30px; border-radius: 10px;">
+    <h1 style="color: #f44336;">Low Stock Alert</h1>
+    <p>The following product is running low on stock:</p>
+    
+    <div style="background-color: #fff3cd; padding: 15px; margin: 20px 0; border-radius: 5px; border-left: 4px solid #ffc107;">
+      <p><strong>SKU:</strong> {{sku}}</p>
+      <p><strong>Product ID:</strong> {{productId}}</p>
+      <p><strong>Available Quantity:</strong> {{availableQuantity}}</p>
+      <p><strong>Reorder Level:</strong> {{reorderLevel}}</p>
+    </div>
+
+    <p style="color: #d32f2f;"><strong>Action Required:</strong> Please reorder inventory to maintain stock levels.</p>
+
+    <p style="margin-top: 30px;">
+      <a href="{{appUrl}}/admin/inventory" style="background-color: #ff9800; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; display: inline-block;">Manage Inventory</a>
+    </p>
+  </div>
+</body>
+</html>

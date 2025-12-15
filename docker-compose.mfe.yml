@@ -1,0 +1,90 @@
+version: '3.8'
+
+services:
+  # Shell App (Host)
+  mfe-shell:
+    build:
+      context: ./apps/mfe-shell
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_API_URL=http://api-gateway:8080
+      - NEXT_PUBLIC_SEARCH_MFE_URL=http://mfe-search:3001
+      - NEXT_PUBLIC_WISHLIST_MFE_URL=http://mfe-wishlist:3002
+      - NEXT_PUBLIC_REVIEWS_MFE_URL=http://mfe-reviews:3003
+      - NEXT_PUBLIC_PRODUCTS_MFE_URL=http://mfe-products:3004
+      - NEXT_PUBLIC_CART_MFE_URL=http://mfe-cart:3005
+    networks:
+      - mfe-network
+    depends_on:
+      - mfe-search
+      - mfe-wishlist
+      - mfe-reviews
+      - mfe-products
+      - mfe-cart
+
+  # Search MFE
+  mfe-search:
+    build:
+      context: ./apps/mfe-search
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=production
+    networks:
+      - mfe-network
+
+  # Wishlist MFE
+  mfe-wishlist:
+    build:
+      context: ./apps/mfe-wishlist
+      dockerfile: Dockerfile
+    ports:
+      - "3002:3002"
+    environment:
+      - NODE_ENV=production
+    networks:
+      - mfe-network
+
+  # Reviews MFE
+  mfe-reviews:
+    build:
+      context: ./apps/mfe-reviews
+      dockerfile: Dockerfile
+    ports:
+      - "3003:3003"
+    environment:
+      - NODE_ENV=production
+    networks:
+      - mfe-network
+
+  # Products MFE
+  mfe-products:
+    build:
+      context: ./apps/mfe-products
+      dockerfile: Dockerfile
+    ports:
+      - "3004:3004"
+    environment:
+      - NODE_ENV=production
+    networks:
+      - mfe-network
+
+  # Cart MFE
+  mfe-cart:
+    build:
+      context: ./apps/mfe-cart
+      dockerfile: Dockerfile
+    ports:
+      - "3005:3005"
+    environment:
+      - NODE_ENV=production
+    networks:
+      - mfe-network
+
+networks:
+  mfe-network:
+    driver: bridge

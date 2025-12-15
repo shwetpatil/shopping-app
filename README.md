@@ -21,12 +21,10 @@
 
 ## 🚀 Quick Start
 
+### Phase 1: Frontend Microfrontends
 ```bash
 # Install dependencies
 pnpm install
-
-# Start backend services
-docker-compose up -d
 
 # Start all microfrontends
 ./start-all.sh
@@ -35,17 +33,52 @@ docker-compose up -d
 cd apps/mfe-shell && npm run dev
 ```
 
+### Phase 2: Backend Services (NEW! ✨)
+```bash
+# 1. Start infrastructure (PostgreSQL, Redis, Kafka)
+docker-compose up -d
+
+# 2. Run database migrations
+cd services/order-service && npx prisma migrate dev
+cd ../payment-service && npx prisma migrate dev
+# ... repeat for other services
+
+# 3. Seed databases with test data (1,500+ records)
+npm run db:seed:all
+
+# 4. Start all Phase 2 services
+./scripts/start-phase2-services.sh
+
+# 5. Test the APIs
+./scripts/test-phase2-apis.sh
+```
+
+📚 **Complete Phase 2 Setup Guide:** [docs/PHASE2_SETUP.md](docs/PHASE2_SETUP.md)
+
 ### 🌐 Application URLs
 
+#### Frontend (Microfrontends)
 | Service | URL | Team |
 |---------|-----|------|
 | **Shell** (Host) | http://localhost:3000 | Platform |
 | **Search** | http://localhost:3001 | Search |
-| **Products** | http://localhost:3004 | Commerce |
-| **Cart** | http://localhost:3005 | Commerce |
 | **Wishlist** | http://localhost:3002 | Engagement |
 | **Reviews** | http://localhost:3003 | Engagement |
-| **API Gateway** | http://localhost:8080 | Backend |
+| **Products** | http://localhost:3004 | Commerce |
+| **Cart** | http://localhost:3005 | Commerce |
+
+#### Backend (Microservices)
+| Service | URL | Status |
+|---------|-----|--------|
+| **API Gateway** | http://localhost:3000 | ✅ Phase 2 |
+| **Auth Service** | http://localhost:3001 | ✅ Phase 1 |
+| **Product Service** | http://localhost:3002 | ✅ Phase 1 |
+| **Order Service** | http://localhost:3003 | ✅ Phase 2 |
+| **Payment Service** | http://localhost:3005 | ✅ Phase 2 |
+| **Cart Service** | http://localhost:3006 | ✅ Phase 2 |
+| **Inventory Service** | http://localhost:3007 | ✅ Phase 2 |
+| **Notification Service** | http://localhost:3008 | ✅ Phase 2 |
+| **Kafka UI** | http://localhost:8080 | ✅ Phase 2 |
 
 ## 🏗️ Architecture
                            # Microfrontends (6)
@@ -202,6 +235,113 @@ Architecture Metrics
 - ✅ Comprehensive documentation
 - ✅ B2B compliance verified
 - ✅ Best practices implemented
+
+## 🎉 Phase 2: Order & Payment Services (NEW!)
+
+Phase 2 brings complete e-commerce workflows with event-driven architecture!
+
+### What's New
+- ✅ **Order Service** - Complete order lifecycle management
+- ✅ **Payment Service** - Stripe integration with webhooks
+- ✅ **Cart Service** - Shopping cart with Redis
+- ✅ **Inventory Service** - Real-time stock management
+- ✅ **Notification Service** - Email/SMS notifications
+- ✅ **API Gateway** - Unified entry point with routing
+- ✅ **Kafka Event Bus** - Event-driven communication
+- ✅ **1,500+ Test Records** - Realistic seeded data
+
+### Event-Driven Workflows
+
+**Order Creation Flow:**
+```
+User → Order Service
+  ↓ publishes ORDER_CREATED event
+  ├→ Inventory Service (reserves stock)
+  │   ↓ publishes STOCK_RESERVED
+  │   └→ Order Service (updates status)
+  └→ Notification Service (sends confirmation)
+```
+
+**Payment Flow:**
+```
+User → Payment Service (create intent)
+  ↓ Stripe processes payment
+Stripe Webhook → Payment Service
+  ↓ publishes PAYMENT_AUTHORIZED
+  ├→ Order Service (confirms order)
+  └→ Notification Service (payment confirmation)
+```
+
+### Quick Start
+```bash
+# 1. Start infrastructure (PostgreSQL, Redis, Kafka)
+docker-compose up -d
+
+# 2. Seed databases (1,500+ records)
+npm run db:seed:all
+
+# 3. Start all Phase 2 services
+./scripts/start-phase2-services.sh
+
+# 4. Test the complete flow
+./scripts/test-phase2-apis.sh
+
+# 5. Monitor events in Kafka UI
+open http://localhost:8080
+```
+
+### Test Accounts
+```
+Admin:    admin@example.com / Admin123!
+Vendor:   vendor@example.com / Vendor123!
+Customer: customer@example.com / Customer123!
+```
+
+### API Endpoints
+
+**Order Management:**
+- `POST /api/orders` - Create order
+- `GET /api/orders` - List orders
+- `GET /api/orders/:id` - Order details
+- `POST /api/orders/:id/cancel` - Cancel order
+
+**Payment Processing:**
+- `POST /api/payments/intent` - Create payment intent
+- `POST /api/payments/:id/capture` - Capture payment
+- `POST /api/payments/:id/refund` - Process refund
+
+**Cart Operations:**
+- `GET /api/cart` - Get cart
+- `POST /api/cart/items` - Add to cart
+- `DELETE /api/cart/items/:id` - Remove item
+
+**Inventory:**
+- `GET /api/inventory/:productId` - Stock levels
+- `POST /api/inventory/reserve` - Reserve stock
+
+### 📚 Phase 2 Documentation
+- [**PHASE2_SETUP.md**](docs/PHASE2_SETUP.md) - Complete setup guide
+- [**PHASE2_SUMMARY.md**](docs/PHASE2_SUMMARY.md) - Implementation details
+- [**DATABASE_SEEDING.md**](docs/DATABASE_SEEDING.md) - Seeding guide
+
+### Infrastructure
+- 6 PostgreSQL databases (one per service)
+- Redis for caching and sessions
+- Kafka + Zookeeper for events
+- Kafka UI for monitoring
+- All services health-checked
+
+### What You Can Do Now
+✅ Create orders with multiple items  
+✅ Process payments with Stripe  
+✅ Track order status in real-time  
+✅ Manage shopping cart  
+✅ Monitor stock levels  
+✅ Receive email notifications  
+✅ Cancel orders and get refunds  
+✅ View event flow in Kafka UI  
+
+**🚀 You now have a production-ready, event-driven, microservices-based e-commerce backend!**
 
 ## 📝 License
 
