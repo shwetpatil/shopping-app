@@ -9,7 +9,9 @@ import { InventoryEventConsumer } from './consumers/inventory-event.consumer';
 
 dotenv.config();
 
-const PORT = process.env.PORT || 3007;
+import { SERVICE_PORTS } from '@shopping-app/config';
+
+const PORT = process.env.PORT || SERVICE_PORTS.NOTIFICATION;
 
 const startServer = async () => {
   try {
@@ -28,8 +30,9 @@ const startServer = async () => {
     logger.info('Kafka consumers started');
 
     app.listen(PORT, () => {
-      logger.info(`Notification service listening on port ${PORT}`);
+      logger.info(`🔔 Notification Service started on port ${PORT}`);
       logger.info(`Environment: ${process.env.NODE_ENV}`);
+      logger.info(`Health check: http://localhost:${PORT}/health`);
     });
   } catch (error) {
     logger.error('Failed to start server:', error);

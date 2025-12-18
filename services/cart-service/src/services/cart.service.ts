@@ -1,4 +1,4 @@
-import { BadRequestError, logger } from '@shopping-app/common';
+import { BadRequestError, logger, cartCache } from '@shopping-app/common';
 import { CartRepository } from '../repositories/cart.repository';
 import { ProductService } from './product.service';
 import { Cart, CartItem } from '../domain/cart';
@@ -7,13 +7,24 @@ export class CartService {
   private cartRepository: CartRepository;
   private productService: ProductService;
   private readonly CART_TTL = parseInt(process.env.CART_TTL || '604800'); // 7 days
+  private cacheEnabled: boolean;
 
   constructor() {
     this.cartRepository = new CartRepository();
     this.productService = new ProductService();
+    this.cacheEnabled = process.env.REDIS_ENABLED !== 'false';
   }
 
   async getCart(userId: string): Promise<Cart> {
+    // Try cache first for cart data
+    if (this.cacheEnabled) {
+      const cached = await cartCache.get<Cart>(`user:${userId}`);
+      if (cached) {
+        logger.debug(`Cart cache hit for user ${userId}`);
+        return cached;
+      }
+    }
+
     const cart = await this.cartRepository.getCart(userId);
 
     if (!cart || !cart.items || cart.items.length === 0) {
@@ -55,6 +66,11 @@ export class CartService {
 
     // Save updated cart
     await this.cartRepository.saveCart(userId, updatedCart, this.CART_TTL);
+
+    // Cache the cart
+    if (this.cacheEnabled) {
+      await cartCache.set(`user:${userId}`, updatedCart, { ttl: 1800 }); // 30 min
+    }
 
     return updatedCart;
   }
@@ -101,6 +117,11 @@ export class CartService {
 
     await this.cartRepository.saveCart(userId, cart, this.CART_TTL);
 
+    // Invalidate cache
+    if (this.cacheEnabled) {
+      await cartCache.del(`user:${userId}`);
+    }
+
     logger.info('Item added to cart', { userId, productId, quantity });
 
     return cart;
@@ -133,6 +154,11 @@ export class CartService {
 
     await this.cartRepository.saveCart(userId, cart, this.CART_TTL);
 
+    // Invalidate cache
+    if (this.cacheEnabled) {
+      await cartCache.del(`user:${userId}`);
+    }
+
     logger.info('Cart item updated', { userId, productId, quantity });
 
     return cart;
@@ -152,6 +178,11 @@ export class CartService {
 
     await this.cartRepository.saveCart(userId, cart, this.CART_TTL);
 
+    // Invalidate cache
+    if (this.cacheEnabled) {
+      await cartCache.del(`user:${userId}`);
+    }
+
     logger.info('Item removed from cart', { userId, productId });
 
     return cart;
@@ -159,6 +190,12 @@ export class CartService {
 
   async clearCart(userId: string): Promise<void> {
     await this.cartRepository.deleteCart(userId);
+    
+    // Invalidate cache
+    if (this.cacheEnabled) {
+      await cartCache.del(`user:${userId}`);
+    }
+    
     logger.info('Cart cleared', { userId });
   }
 

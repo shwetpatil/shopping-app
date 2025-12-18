@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { ProductController } from '../controllers/product.controller';
-import { validate, requireAuth } from '@shopping-app/common';
+import { validate, requireAuth, CachePresets } from '@shopping-app/common';
 import {
   createProductSchema,
   updateProductSchema,
@@ -10,8 +10,8 @@ import {
 const router = Router();
 const productController = new ProductController();
 
-router.get('/', validate(getProductsSchema), productController.getProducts);
-router.get('/:id', productController.getProductById);
+router.get('/', CachePresets.shortTerm(), validate(getProductsSchema), productController.getProducts);
+router.get('/:id', CachePresets.mediumTerm(), productController.getProductById);
 router.post('/', requireAuth, validate(createProductSchema), productController.createProduct);
 router.put('/:id', requireAuth, validate(updateProductSchema), productController.updateProduct);
 router.delete('/:id', requireAuth, productController.deleteProduct);

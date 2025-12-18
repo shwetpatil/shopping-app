@@ -23,17 +23,17 @@ const limiter = rateLimit({
   message: 'Too many requests from this IP, please try again later.',
 });
 
-app.use(limiter);
+app.use(limiter as any);
 
 // Body parsing
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Request logging
-app.use(requestLogger);
+app.use(requestLogger as any);
 
 // Health check
-app.get('/health', (req: Request, res: Response) => {
+app.get('/health', (_req: Request, res: Response) => {
   res.status(200).json({ status: 'healthy', service: 'product-service' });
 });
 
@@ -43,6 +43,6 @@ app.use('/api/categories', categoryRoutes);
 app.use('/api/brands', brandRoutes);
 
 // Error handling
-app.use(errorHandler);
+app.use(errorHandler as any);
 
 export default app;

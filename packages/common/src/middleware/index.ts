@@ -6,3 +6,4 @@ export * from './rate-limit.middleware';
 export * from './sanitize.middleware';
 export * from './cors.middleware';
 export * from './api-key.middleware';
+export * from './cache-control.middleware';

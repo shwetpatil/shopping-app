@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { logger, BadRequestError } from '@shopping-app/common';
+import { SERVICE_URLS } from '@shopping-app/config';
 
-const PRODUCT_SERVICE_URL = process.env.PRODUCT_SERVICE_URL || 'http://localhost:3002';
+const PRODUCT_SERVICE_URL = process.env.PRODUCT_SERVICE_URL || SERVICE_URLS.PRODUCT;
 
 interface Product {
   id: string;

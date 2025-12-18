@@ -7,7 +7,9 @@ import { OrderEventConsumer } from './consumers/order-event.consumer';
 
 dotenv.config();
 
-const PORT = process.env.PORT || 3005;
+import { SERVICE_PORTS } from '@shopping-app/config';
+
+const PORT = process.env.PORT || SERVICE_PORTS.PAYMENT;
 
 const startServer = async () => {
   try {
@@ -22,8 +24,9 @@ const startServer = async () => {
     logger.info('Kafka consumers started');
 
     app.listen(PORT, () => {
-      logger.info(`Payment service listening on port ${PORT}`);
+      logger.info(`💳 Payment Service started on port ${PORT}`);
       logger.info(`Environment: ${process.env.NODE_ENV}`);
+      logger.info(`Health check: http://localhost:${PORT}/health`);
     });
   } catch (error) {
     logger.error('Failed to start server:', error);

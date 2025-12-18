@@ -4,14 +4,16 @@
   "description": "Search microfrontend - Independently deployable search module",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 3001",
+    "dev": "node ../../scripts/start-mfe.js mfe-search dev",
     "build": "next build",
-    "start": "next start -p 3001",
+    "start": "node ../../scripts/start-mfe.js mfe-search start",
     "lint": "next lint",
     "deploy": "npm run build && ./deploy.sh"
   },
   "dependencies": {
     "@shopping-app/mfe-contracts": "file:../../packages/mfe-contracts",
+    "@tanstack/react-query": "^5.90.12",
+    "@tanstack/react-query-devtools": "^5.91.1",
     "lucide-react": "^0.300.0",
     "next": "^14.0.0",
     "react": "^18.2.0",

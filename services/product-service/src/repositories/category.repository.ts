@@ -1,14 +1,33 @@
 import { prisma } from '../db/prisma';
 import { Category } from '@prisma/client';
+import { CategoryFilters } from '../domain/category';
 
 export class CategoryRepository {
-  async findMany(): Promise<Category[]> {
+  async findMany(filters?: CategoryFilters): Promise<Category[]> {
+    const where: any = {};
+
+    if (filters?.search) {
+      where.OR = [
+        { name: { contains: filters.search, mode: 'insensitive' } },
+        { description: { contains: filters.search, mode: 'insensitive' } },
+      ];
+    }
+
+    if (filters?.isActive !== undefined) {
+      where.isActive = filters.isActive;
+    }
+
+    if (filters?.parentId !== undefined) {
+      where.parentId = filters.parentId;
+    }
+
     return prisma.category.findMany({
+      where,
       include: {
         children: true,
         parent: true,
       },
-      orderBy: { name: 'asc' },
+      orderBy: { displayOrder: 'asc' },
     });
   }
 

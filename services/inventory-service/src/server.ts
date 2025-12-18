@@ -9,7 +9,9 @@ import { ReservationCleanupJob } from './jobs/reservation-cleanup.job';
 
 dotenv.config();
 
-const PORT = process.env.PORT || 3006;
+import { SERVICE_PORTS } from '@shopping-app/config';
+
+const PORT = process.env.PORT || SERVICE_PORTS.INVENTORY;
 
 const startServer = async () => {
   try {
@@ -32,8 +34,9 @@ const startServer = async () => {
     logger.info('Reservation cleanup job started');
 
     app.listen(PORT, () => {
-      logger.info(`Inventory service listening on port ${PORT}`);
+      logger.info(`📊 Inventory Service started on port ${PORT}`);
       logger.info(`Environment: ${process.env.NODE_ENV}`);
+      logger.info(`Health check: http://localhost:${PORT}/health`);
     });
   } catch (error) {
     logger.error('Failed to start server:', error);

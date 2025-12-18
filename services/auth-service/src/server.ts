@@ -5,7 +5,9 @@ import { prisma } from './db/prisma';
 
 dotenv.config();
 
-const PORT = process.env.PORT || 3001;
+import { SERVICE_PORTS } from '@shopping-app/config';
+
+const PORT = process.env.PORT || SERVICE_PORTS.AUTH;
 
 const startServer = async () => {
   try {
@@ -14,8 +16,9 @@ const startServer = async () => {
     logger.info('Database connected successfully');
 
     app.listen(PORT, () => {
-      logger.info(`Auth service listening on port ${PORT}`);
+      logger.info(`🔐 Auth Service started on port ${PORT}`);
       logger.info(`Environment: ${process.env.NODE_ENV}`);
+      logger.info(`Health check: http://localhost:${PORT}/health`);
     });
   } catch (error) {
     logger.error('Failed to start server:', error);

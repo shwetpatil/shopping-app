@@ -1,0 +1,175 @@
+name: Products MFE CI/CD
+
+on:
+  push:
+    branches: [main, develop]
+    paths:
+      - 'apps/mfe-products/**'
+      - 'packages/mfe-contracts/**'
+      - '.github/workflows/mfe-products.yml'
+  pull_request:
+    branches: [main, develop]
+    paths:
+      - 'apps/mfe-products/**'
+      - 'packages/mfe-contracts/**'
+
+env:
+  NODE_VERSION: '18.x'
+  WORKING_DIRECTORY: ./apps/mfe-products
+
+jobs:
+  quality:
+    name: Code Quality Checks
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+      
+      - name: Type check
+        run: npm run type-check
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+      
+      - name: Lint
+        run: npm run lint
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+      
+      - name: Run tests
+        run: npm run test:ci
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+      
+      - name: Upload coverage
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./apps/mfe-products/coverage/coverage-final.json
+          flags: mfe-products
+          name: mfe-products-coverage
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    needs: quality
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+      
+      - name: Build
+        run: npm run build
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+        env:
+          NEXT_PUBLIC_API_URL: ${{ secrets.API_URL || 'http://localhost:3001' }}
+          NEXT_PUBLIC_USE_MOCK_DATA: 'false'
+      
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: mfe-products-build
+          path: apps/mfe-products/.next
+          retention-days: 7
+
+  security:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Run npm audit
+        run: npm audit --audit-level=high
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+        continue-on-error: true
+      
+      - name: Run Snyk scan
+        uses: snyk/actions/node@master
+        continue-on-error: true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --severity-threshold=high --file=apps/mfe-products/package.json
+
+  deploy-staging:
+    name: Deploy to Staging
+    runs-on: ubuntu-latest
+    needs: [quality, build]
+    if: github.ref == 'refs/heads/develop'
+    environment:
+      name: staging
+      url: https://products-staging.example.com
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Download build artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: mfe-products-build
+          path: apps/mfe-products/.next
+      
+      - name: Deploy to Vercel (Staging)
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          working-directory: ./apps/mfe-products
+          scope: ${{ secrets.VERCEL_ORG_ID }}
+
+  deploy-production:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    needs: [quality, build, security]
+    if: github.ref == 'refs/heads/main'
+    environment:
+      name: production
+      url: https://products.example.com
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Download build artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: mfe-products-build
+          path: apps/mfe-products/.next
+      
+      - name: Deploy to Vercel (Production)
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-args: '--prod'
+          working-directory: ./apps/mfe-products
+          scope: ${{ secrets.VERCEL_ORG_ID }}
+      
+      - name: Notify deployment
+        uses: 8398a7/action-slack@v3
+        if: always()
+        with:
+          status: ${{ job.status }}
+          text: 'Products MFE deployed to production'
+          webhook_url: ${{ secrets.SLACK_WEBHOOK }}

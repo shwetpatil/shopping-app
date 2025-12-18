@@ -1,8 +1,9 @@
 import axios from 'axios';
 import { logger, InternalServerError } from '@shopping-app/common';
+import { SERVICE_URLS } from '@shopping-app/config';
 
-const PRODUCT_SERVICE_URL = process.env.PRODUCT_SERVICE_URL || 'http://localhost:3002';
-const ORDER_SERVICE_URL = process.env.ORDER_SERVICE_URL || 'http://localhost:3003';
+const PRODUCT_SERVICE_URL = process.env.PRODUCT_SERVICE_URL || SERVICE_URLS.PRODUCT;
+const ORDER_SERVICE_URL = process.env.ORDER_SERVICE_URL || SERVICE_URLS.ORDER;
 
 export class BFFService {
   /**

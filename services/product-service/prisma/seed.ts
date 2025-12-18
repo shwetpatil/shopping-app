@@ -193,19 +193,33 @@ async function main() {
 
         products.push(product);
 
-        // Create 2-5 images per product
+        // Create 2-5 images per product with category-specific images
         const numImages = faker.number.int({ min: 2, max: 5 });
+        const imageKeywords = {
+          'electronics': ['laptop', 'computer', 'monitor', 'technology', 'device'],
+          'office-supplies': ['office', 'desk', 'stationery', 'workspace', 'supplies'],
+          'industrial-equipment': ['tools', 'equipment', 'machinery', 'industrial', 'construction'],
+          'medical-supplies': ['medical', 'healthcare', 'hospital', 'clinic', 'health'],
+          'food-beverage': ['food', 'restaurant', 'kitchen', 'catering', 'beverage'],
+          'hospitality': ['hotel', 'restaurant', 'hospitality', 'dining', 'table'],
+          'construction-materials': ['construction', 'building', 'materials', 'hardware', 'lumber'],
+          'automotive-parts': ['car', 'automotive', 'vehicle', 'auto', 'parts'],
+          'packaging-supplies': ['packaging', 'boxes', 'shipping', 'warehouse', 'logistics'],
+          'janitorial': ['cleaning', 'janitorial', 'maintenance', 'supplies', 'sanitation'],
+        };
+        
         await Promise.all(
-          Array.from({ length: numImages }).map((_, idx) =>
-            prisma.productImage.create({
+          Array.from({ length: numImages }).map((_, idx) => {
+            const keyword = imageKeywords[cat.slug as keyof typeof imageKeywords]?.[idx % 5] || 'product';
+            return prisma.productImage.create({
               data: {
                 productId: product.id,
-                url: `https://picsum.photos/seed/${product.id}-${idx}/800/600`,
-                altText: `${product.name} - Image ${idx + 1}`,
+                url: `https://images.unsplash.com/photo-${1500000000000 + product.id + idx}?w=800&h=600&fit=crop&q=80`,
+                altText: `${product.name} - ${keyword} view ${idx + 1}`,
                 position: idx,
               },
-            })
-          )
+            });
+          })
         );
 
         // Create 0-3 variants per product (30% of products have variants)

@@ -5,3 +5,4 @@ export * from './types';
 export * from './validators';
 export * from './events';
 export * from './utils/encryption.util';
+export * from './cache';

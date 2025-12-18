@@ -3,17 +3,21 @@
 # Start all microfrontends concurrently
 # Run this from the root directory
 
+# Load port configuration
+SOURCE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SOURCE_DIR/scripts/ports.env"
+
 echo "🚀 Starting all microfrontends..."
 echo ""
 
 # Array of MFEs with their ports
 declare -a mfes=(
-  "mfe-shell:3000"
-  "mfe-search:3001"
-  "mfe-wishlist:3002"
-  "mfe-reviews:3003"
-  "mfe-products:3004"
-  "mfe-cart:3005"
+  "mfe-shell:$MFE_SHELL_PORT"
+  "mfe-search:$MFE_SEARCH_PORT"
+  "mfe-wishlist:$MFE_WISHLIST_PORT"
+  "mfe-reviews:$MFE_REVIEWS_PORT"
+  "mfe-products:$MFE_PRODUCTS_PORT"
+  "mfe-cart:$MFE_CART_PORT"
 )
 
 # Start each MFE in background
@@ -29,12 +33,12 @@ echo ""
 echo "✅ All microfrontends started!"
 echo ""
 echo "URLs:"
-echo "  Shell App:     http://localhost:3000"
-echo "  Search MFE:    http://localhost:3001"
-echo "  Wishlist MFE:  http://localhost:3002"
-echo "  Reviews MFE:   http://localhost:3003"
-echo "  Products MFE:  http://localhost:3004"
-echo "  Cart MFE:      http://localhost:3005"
+echo "  Shell App:     http://localhost:$MFE_SHELL_PORT"
+echo "  Search MFE:    http://localhost:$MFE_SEARCH_PORT"
+echo "  Wishlist MFE:  http://localhost:$MFE_WISHLIST_PORT"
+echo "  Reviews MFE:   http://localhost:$MFE_REVIEWS_PORT"
+echo "  Products MFE:  http://localhost:$MFE_PRODUCTS_PORT"
+echo "  Cart MFE:      http://localhost:$MFE_CART_PORT"
 echo ""
 echo "Press Ctrl+C to stop all services"
 

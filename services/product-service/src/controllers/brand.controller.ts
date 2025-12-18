@@ -10,7 +10,15 @@ export class BrandController {
 
   getBrands = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const brands = await this.brandService.getBrands();
+      const { page, limit, search, isActive } = req.query;
+      
+      const brands = await this.brandService.getBrands({
+        page: page ? Number(page) : undefined,
+        limit: limit ? Number(limit) : undefined,
+        search: search as string,
+        isActive: isActive === 'true',
+      });
+      
       res.status(200).json({
         success: true,
         data: brands,
@@ -34,7 +42,7 @@ export class BrandController {
 
   createBrand = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const brand = await this.brandService.createBrand(req.body);
+      const brand = await this.brandService.createBrand(req.body.body);
       res.status(201).json({
         success: true,
         data: brand,
@@ -47,7 +55,7 @@ export class BrandController {
 
   updateBrand = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const brand = await this.brandService.updateBrand(req.params.id, req.body);
+      const brand = await this.brandService.updateBrand(req.params.id, req.body.body);
       res.status(200).json({
         success: true,
         data: brand,

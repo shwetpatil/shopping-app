@@ -23,8 +23,8 @@ The Products Microfrontend (MFE) is a standalone, independently deployable modul
 
 ### 3. Scalability
 - **Horizontal Scaling:** Can be scaled independently based on product traffic
-- **Cache Strategy:** Multi-layer caching (client, CDN, backend)
-- **Performance Optimized:** Code splitting, lazy loading, optimized bundles
+- **Cache Strategy:** Multi-layer caching (TanStack Query 5min, CDN edge caching with s-maxage, Redis backend cache)
+- **Performance Optimized:** Code splitting, lazy loading, optimized bundles, CDN distribution
 
 ## System Architecture
 

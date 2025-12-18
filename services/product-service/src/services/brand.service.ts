@@ -1,5 +1,6 @@
 import { NotFoundError, BadRequestError } from '@shopping-app/common';
 import { BrandRepository } from '../repositories/brand.repository';
+import { CreateBrandDto, UpdateBrandDto, BrandFilters } from '../domain/brand';
 
 export class BrandService {
   private brandRepository: BrandRepository;
@@ -8,8 +9,8 @@ export class BrandService {
     this.brandRepository = new BrandRepository();
   }
 
-  async getBrands() {
-    return this.brandRepository.findMany();
+  async getBrands(filters?: BrandFilters) {
+    return this.brandRepository.findMany(filters);
   }
 
   async getBrandById(id: string) {
@@ -20,7 +21,7 @@ export class BrandService {
     return brand;
   }
 
-  async createBrand(data: any) {
+  async createBrand(data: CreateBrandDto) {
     const existingBrand = await this.brandRepository.findBySlug(data.slug);
     if (existingBrand) {
       throw new BadRequestError('Brand with this slug already exists');
@@ -29,7 +30,7 @@ export class BrandService {
     return this.brandRepository.create(data);
   }
 
-  async updateBrand(id: string, data: any) {
+  async updateBrand(id: string, data: UpdateBrandDto) {
     const existingBrand = await this.brandRepository.findById(id);
     if (!existingBrand) {
       throw new NotFoundError('Brand not found');

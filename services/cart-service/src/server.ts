@@ -5,7 +5,9 @@ import { redisClient } from './db/redis';
 
 dotenv.config();
 
-const PORT = process.env.PORT || 3004;
+import { SERVICE_PORTS } from '@shopping-app/config';
+
+const PORT = process.env.PORT || SERVICE_PORTS.CART;
 
 const startServer = async () => {
   try {
@@ -13,8 +15,9 @@ const startServer = async () => {
     logger.info('Redis connected successfully');
 
     app.listen(PORT, () => {
-      logger.info(`Cart service listening on port ${PORT}`);
+      logger.info(`🛒 Cart Service started on port ${PORT}`);
       logger.info(`Environment: ${process.env.NODE_ENV}`);
+      logger.info(`Health check: http://localhost:${PORT}/health`);
     });
   } catch (error) {
     logger.error('Failed to start server:', error);

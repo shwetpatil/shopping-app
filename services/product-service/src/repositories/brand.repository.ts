@@ -1,9 +1,24 @@
 import { prisma } from '../db/prisma';
 import { Brand } from '@prisma/client';
+import { BrandFilters } from '../domain/brand';
 
 export class BrandRepository {
-  async findMany(): Promise<Brand[]> {
+  async findMany(filters?: BrandFilters): Promise<Brand[]> {
+    const where: any = {};
+
+    if (filters?.search) {
+      where.OR = [
+        { name: { contains: filters.search, mode: 'insensitive' } },
+        { description: { contains: filters.search, mode: 'insensitive' } },
+      ];
+    }
+
+    if (filters?.isActive !== undefined) {
+      where.isActive = filters.isActive;
+    }
+
     return prisma.brand.findMany({
+      where,
       orderBy: { name: 'asc' },
     });
   }

@@ -1,0 +1,61 @@
+
+> @shopping-app/notification-service@1.0.0 dev
+> nodemon
+
+[33m[nodemon] 3.1.11[39m
+[33m[nodemon] to restart at any time, enter `rs`[39m
+[33m[nodemon] watching path(s): src/**/*[39m
+[33m[nodemon] watching extensions: ts[39m
+[32m[nodemon] starting `ts-node src/server.ts`[39m
+/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:859
+    return new TSError(diagnosticText, diagnosticCodes, diagnostics);
+           ^
+TSError: ⨯ Unable to compile TypeScript:
+src/app.ts(24,9): error TS2769: No overload matches this call.
+  The last overload gave the following error.
+    Argument of type 'RateLimitRequestHandler' is not assignable to parameter of type 'PathParams'.
+src/app.ts(27,9): error TS2769: No overload matches this call.
+  The last overload gave the following error.
+    Argument of type '(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>, next: NextFunction) => void' is not assignable to parameter of type 'PathParams'.
+src/app.ts(29,21): error TS6133: 'req' is declared but its value is never read.
+src/app.ts(34,9): error TS2769: No overload matches this call.
+  The last overload gave the following error.
+    Argument of type '(err: Error, req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>, next: NextFunction) => Response<...> | undefined' is not assignable to parameter of type 'PathParams'.
+
+    at createTSError (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:859:12)
+    at reportTSError (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:863:19)
+    at getOutput (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:1077:36)
+    at Object.compile (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:1433:41)
+    at Module.m._compile (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:1617:30)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1623:10)
+    at Object.require.extensions.<computed> [as .ts] (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1266:32)
+    at Function.Module._load (node:internal/modules/cjs/loader:1091:12)
+    at Module.require (node:internal/modules/cjs/loader:1289:19) {
+  diagnosticCodes: [ 2769, 2769, 6133, 2769 ]
+}
+[31m[nodemon] app crashed - waiting for file changes before starting...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `ts-node src/server.ts`[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `ts-node src/server.ts`[39m
+/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:859
+    return new TSError(diagnosticText, diagnosticCodes, diagnostics);
+           ^
+TSError: ⨯ Unable to compile TypeScript:
+src/server.ts(12,31): error TS2307: Cannot find module '@shopping-app/config' or its corresponding type declarations.
+
+    at createTSError (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:859:12)
+    at reportTSError (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:863:19)
+    at getOutput (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:1077:36)
+    at Object.compile (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:1433:41)
+    at Module.m._compile (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:1617:30)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1623:10)
+    at Object.require.extensions.<computed> [as .ts] (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1266:32)
+    at Function.Module._load (node:internal/modules/cjs/loader:1091:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12) {
+  diagnosticCodes: [ 2307 ]
+}
+[31m[nodemon] app crashed - waiting for file changes before starting...[39m

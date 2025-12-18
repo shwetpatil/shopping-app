@@ -4,15 +4,24 @@ import cors from 'cors';
 import rateLimit from 'express-rate-limit';
 import { createProxyMiddleware } from 'http-proxy-middleware';
 import { errorHandler, requestLogger, requireAuth } from '@shopping-app/common';
+import { MFE_URLS, SERVICE_URLS } from '@shopping-app/config';
 import bffRoutes from './routes/bff.routes';
+import { setupGraphQL } from './graphql';
 
 const app: Application = express();
 
+// Default CORS origins from config
+const DEFAULT_CORS_ORIGINS = [MFE_URLS.SHELL, MFE_URLS.PRODUCTS];
+
 // Security middleware
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: process.env.NODE_ENV === 'production' ? undefined : false,
+  })
+);
 app.use(
   cors({
-    origin: process.env.CORS_ORIGIN?.split(',') || '*',
+    origin: process.env.CORS_ORIGIN?.split(',') || DEFAULT_CORS_ORIGINS,
     credentials: true,
   })
 );
@@ -26,17 +35,22 @@ const limiter = rateLimit({
   legacyHeaders: false,
 });
 
-app.use(limiter);
+app.use(limiter as any);
 
 // Body parsing
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Request logging
-app.use(requestLogger);
+app.use(requestLogger as any);
+
+// Initialize GraphQL - exported function called from server.ts
+export const initializeGraphQL = async () => {
+  await setupGraphQL(app);
+};
 
 // Health check
-app.get('/health', (req: Request, res: Response) => {
+app.get('/health', (_req: Request, res: Response) => {
   res.status(200).json({
     status: 'healthy',
     service: 'api-gateway',
@@ -52,9 +66,9 @@ app.use('/api/v1/bff', bffRoutes);
 // Cart Service
 app.use(
   '/api/v1/cart',
-  requireAuth,
+  requireAuth as any,
   createProxyMiddleware({
-    target: process.env.CART_SERVICE_URL || 'http://localhost:3004',
+    target: process.env.CART_SERVICE_URL || SERVICE_URLS.CART,
     changeOrigin: true,
     pathRewrite: {
       '^/api/v1/cart': '/api/cart',
@@ -71,9 +85,9 @@ app.use(
 // Payment Service
 app.use(
   '/api/v1/payments',
-  requireAuth,
+  requireAuth as any,
   createProxyMiddleware({
-    target: process.env.PAYMENT_SERVICE_URL || 'http://localhost:3005',
+    target: process.env.PAYMENT_SERVICE_URL || SERVICE_URLS.PAYMENT,
     changeOrigin: true,
     pathRewrite: {
       '^/api/v1/payments': '/api/payments',
@@ -91,7 +105,7 @@ app.use(
 app.use(
   '/api/v1/webhooks',
   createProxyMiddleware({
-    target: process.env.PAYMENT_SERVICE_URL || 'http://localhost:3005',
+    target: process.env.PAYMENT_SERVICE_URL || SERVICE_URLS.PAYMENT,
     changeOrigin: true,
     pathRewrite: {
       '^/api/v1/webhooks': '/api/webhooks',
@@ -102,9 +116,9 @@ app.use(
 // Inventory Service
 app.use(
   '/api/v1/inventory',
-  requireAuth,
+  requireAuth as any,
   createProxyMiddleware({
-    target: process.env.INVENTORY_SERVICE_URL || 'http://localhost:3006',
+    target: process.env.INVENTORY_SERVICE_URL || SERVICE_URLS.INVENTORY,
     changeOrigin: true,
     pathRewrite: {
       '^/api/v1/inventory': '/api/inventory',
@@ -121,9 +135,9 @@ app.use(
 // Notification Service
 app.use(
   '/api/v1/notifications',
-  requireAuth,
+  requireAuth as any,
   createProxyMiddleware({
-    target: process.env.NOTIFICATION_SERVICE_URL || 'http://localhost:3007',
+    target: process.env.NOTIFICATION_SERVICE_URL || SERVICE_URLS.NOTIFICATION,
     changeOrigin: true,
     pathRewrite: {
       '^/api/v1/notifications': '/api/notifications',
@@ -142,22 +156,26 @@ app.use(
 app.use(
   '/api/v1/auth',
   createProxyMiddleware({
-    target: process.env.AUTH_SERVICE_URL || 'http://localhost:3001',
+    target: process.env.AUTH_SERVICE_URL || SERVICE_URLS.AUTH,
     pathRewrite: { '^/api/v1/auth': '/api/auth' },
     changeOrigin: true,
-    onProxyReq: (proxyReq, req, res) => {
+    onProxyReq: (proxyReq, req) => {
       // Add correlation ID for tracing
       const correlationId = req.headers['x-correlation-id'] || `gw-${Date.now()}`;
-      proxyReq.setHeader('x-correlation-id', correlationId);
+      proxyReq.setHeader('x-correlation-id', String(correlationId));
     },
   })
 );
 
-// Product Service - Public endpoints
+// Response caching for GET requests
+import { responseCacheMiddleware } from './middleware/response-cache.middleware';
+
+// Product Service - Public endpoints with response caching
 app.use(
   '/api/v1/products',
+  responseCacheMiddleware({ ttl: 300 }), // 5 min cache
   createProxyMiddleware({
-    target: process.env.PRODUCT_SERVICE_URL || 'http://localhost:3002',
+    target: process.env.PRODUCT_SERVICE_URL || SERVICE_URLS.PRODUCT,
     pathRewrite: { '^/api/v1/products': '/api/products' },
     changeOrigin: true,
   })
@@ -165,8 +183,9 @@ app.use(
 
 app.use(
   '/api/v1/categories',
+  responseCacheMiddleware({ ttl: 3600 }), // 1 hour cache
   createProxyMiddleware({
-    target: process.env.PRODUCT_SERVICE_URL || 'http://localhost:3002',
+    target: process.env.PRODUCT_SERVICE_URL || SERVICE_URLS.PRODUCT,
     pathRewrite: { '^/api/v1/categories': '/api/categories' },
     changeOrigin: true,
   })
@@ -175,7 +194,7 @@ app.use(
 app.use(
   '/api/v1/brands',
   createProxyMiddleware({
-    target: process.env.PRODUCT_SERVICE_URL || 'http://localhost:3002',
+    target: process.env.PRODUCT_SERVICE_URL || SERVICE_URLS.PRODUCT,
     pathRewrite: { '^/api/v1/brands': '/api/brands' },
     changeOrigin: true,
   })
@@ -184,9 +203,9 @@ app.use(
 // Order Service - Protected endpoints
 app.use(
   '/api/v1/orders',
-  requireAuth,
+  requireAuth as any,
   createProxyMiddleware({
-    target: process.env.ORDER_SERVICE_URL || 'http://localhost:3003',
+    target: process.env.ORDER_SERVICE_URL || SERVICE_URLS.ORDER,
     pathRewrite: { '^/api/v1/orders': '/api/orders' },
     changeOrigin: true,
     onProxyReq: (proxyReq, req: any) => {
@@ -208,6 +227,6 @@ app.use((req: Request, res: Response) => {
 });
 
 // Error handling
-app.use(errorHandler);
+app.use(errorHandler as any);
 
 export default app;

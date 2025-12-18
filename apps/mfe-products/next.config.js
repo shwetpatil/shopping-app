@@ -1,4 +1,29 @@
 /** @type {import('next').NextConfig} */
+
+// Import centralized port configuration
+const { SERVICE_PORTS, MFE_PORTS } = (() => {
+  try {
+    // Try loading from tsx
+    require('tsx/cjs');
+    return require('../../config/ports.ts');
+  } catch {
+    // Fallback to direct values if import fails
+    return {
+      SERVICE_PORTS: { API_GATEWAY: 4000, PRODUCT: 4002, CART: 4006 },
+      MFE_PORTS: { PRODUCTS: 3004 }
+    };
+  }
+})();
+
+// Log startup information
+if (process.env.NODE_ENV === 'development') {
+  const port = process.env.PORT || MFE_PORTS.PRODUCTS;
+  console.log(`\n📦 MFE Products starting on port ${port}`);
+  console.log(`   URL: http://localhost:${port}`);
+  console.log(`   API: http://localhost:${SERVICE_PORTS.PRODUCT}`);
+  console.log(`   Environment: ${process.env.NODE_ENV}\n`);
+}
+
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
@@ -21,7 +46,7 @@ const withPWA = require('next-pwa')({
       },
     },
     {
-      urlPattern: /^http:\/\/localhost:3001\/api\/products.*/i,
+      urlPattern: new RegExp(`^http:\\/\\/localhost:${SERVICE_PORTS.PRODUCT}\\/api\\/products.*`, 'i'),
       handler: 'NetworkFirst',
       options: {
         cacheName: 'product-api',
@@ -104,7 +129,7 @@ const nextConfig = {
               "style-src 'self' 'unsafe-inline'",
               "img-src 'self' https://images.unsplash.com data: blob:",
               "font-src 'self' data:",
-              "connect-src 'self' http://localhost:3001 http://localhost:3002",
+              `connect-src 'self' http://localhost:${SERVICE_PORTS.API_GATEWAY} http://localhost:${SERVICE_PORTS.PRODUCT} http://localhost:${SERVICE_PORTS.CART}`,
               "frame-ancestors 'none'",
               "base-uri 'self'",
               "form-action 'self'"

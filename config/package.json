@@ -1,0 +1,11 @@
+{
+  "name": "@shopping-app/config",
+  "version": "1.0.0",
+  "description": "Centralized configuration for ports and URLs",
+  "main": "index.ts",
+  "types": "index.ts",
+  "private": true,
+  "exports": {
+    ".": "./index.ts"
+  }
+}

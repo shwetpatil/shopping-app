@@ -10,7 +10,16 @@ export class CategoryController {
 
   getCategories = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const categories = await this.categoryService.getCategories();
+      const { page, limit, search, isActive, parentId } = req.query;
+      
+      const categories = await this.categoryService.getCategories({
+        page: page ? Number(page) : undefined,
+        limit: limit ? Number(limit) : undefined,
+        search: search as string,
+        isActive: isActive === 'true',
+        parentId: parentId as string,
+      });
+      
       res.status(200).json({
         success: true,
         data: categories,
@@ -34,7 +43,7 @@ export class CategoryController {
 
   createCategory = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const category = await this.categoryService.createCategory(req.body);
+      const category = await this.categoryService.createCategory(req.body.body);
       res.status(201).json({
         success: true,
         data: category,
@@ -47,7 +56,7 @@ export class CategoryController {
 
   updateCategory = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const category = await this.categoryService.updateCategory(req.params.id, req.body);
+      const category = await this.categoryService.updateCategory(req.params.id, req.body.body);
       res.status(200).json({
         success: true,
         data: category,

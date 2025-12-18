@@ -1,5 +1,5 @@
 import { Kafka, Producer, Consumer, EachMessagePayload } from 'kafkajs';
-import { logger } from './logger';
+import { logger } from '../logger';
 
 class EventBus {
   private kafka: Kafka;

@@ -225,17 +225,13 @@ rm -rf packages/*/dist
 |----------|-------------|
 | [README.md](README.md) | Project overview |
 | [GETTING_STARTED.md](GETTING_STARTED.md) | Detailed setup |
-| [ARCHITECTURE.md](ARCHITECTURE.md) | Architecture details |
 | [API_TESTING.md](API_TESTING.md) | API examples |
-| [PHASE2_SUMMARY.md](PHASE2_SUMMARY.md) | Complete feature list |
 
 ## Next Steps
 
 1. **Test the APIs** - Use [API_TESTING.md](API_TESTING.md)
 2. **View Events** - Check Kafka UI at http://localhost:8080
 3. **Explore Data** - Use Prisma Studio
-4. **Add Services** - Payment, Cart, Notification
-5. **Build Frontend** - Next.js application
 
 ## Need Help?
 

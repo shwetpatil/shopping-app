@@ -18,10 +18,9 @@
     "ecommerce"
   ],
   "scripts": {
-    "dev": "next dev -p 3004",
+    "dev": "node ../../scripts/start-mfe.js mfe-products dev",
     "build": "next build",
-    "build:analyze": "ANALYZE=true npm run build",
-    "start": "next start -p 3004",
+    "start": "node ../../scripts/start-mfe.js mfe-products start",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "type-check": "tsc --noEmit",
@@ -29,11 +28,12 @@
     "test:watch": "jest --config config/jest.config.js --watch",
     "test:coverage": "jest --config config/jest.config.js --coverage",
     "test:ci": "jest --config config/jest.config.js --ci --coverage --maxWorkers=2",
-    "clean": "rm -rf .next node_modules coverage",
-    "clean:build": "rm -rf .next",
-    "prebuild": "npm run clean:build",
+    "clean": "rm -rf .next coverage",
+    "clean:all": "rm -rf .next node_modules coverage",
+    "prebuild": "rm -rf .next",
+    "analyze": "ANALYZE=true next build",
     "validate": "npm run type-check && npm run lint && npm run test",
-    "deploy": "npm run validate && npm run build"
+    "ci": "npm run validate && npm run build"
   },
   "engines": {
     "node": ">=18.0.0",
@@ -41,6 +41,7 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
+    "@shopping-app/config": "workspace:*",
     "@shopping-app/mfe-contracts": "file:../../packages/mfe-contracts",
     "@tanstack/react-query": "^5.90.12",
     "@tanstack/react-query-devtools": "^5.91.1",
@@ -51,6 +52,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-window": "^2.2.3",
+    "socket.io-client": "^4.8.1",
     "zod": "^4.2.0"
   },
   "devDependencies": {

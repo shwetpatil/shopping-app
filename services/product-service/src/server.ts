@@ -1,20 +1,29 @@
 import dotenv from 'dotenv';
+import { createServer } from 'http';
 import { logger } from '@shopping-app/common';
+import { SERVICE_PORTS } from '@shopping-app/config';
 import app from './app';
 import { prisma } from './db/prisma';
+import { initializeWebSocket } from './websocket';
 
 dotenv.config();
 
-const PORT = process.env.PORT || 3002;
+const PORT = process.env.PORT || SERVICE_PORTS.PRODUCT;
 
 const startServer = async () => {
   try {
     await prisma.$connect();
     logger.info('Database connected successfully');
 
-    app.listen(PORT, () => {
-      logger.info(`Product service listening on port ${PORT}`);
+    // Create HTTP server and initialize WebSocket
+    const httpServer = createServer(app);
+    initializeWebSocket(httpServer);
+
+    httpServer.listen(PORT, () => {
+      logger.info(`🚀 Product Service started on port ${PORT}`);
       logger.info(`Environment: ${process.env.NODE_ENV}`);
+      logger.info(`Health check: http://localhost:${PORT}/health`);
+      logger.info(`WebSocket: ws://localhost:${PORT}/socket.io/`);
     });
   } catch (error) {
     logger.error('Failed to start server:', error);

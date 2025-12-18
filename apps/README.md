@@ -1,8 +1,8 @@
-# Apps Overview
+# Microfrontend Applications
 
-This directory contains all microfrontend applications for the Shopping App platform.
+This directory contains all 6 independent microfrontend applications for the Shopping App platform. Each MFE is owned by a specific team and can be developed, tested, and deployed independently.
 
-## 🏗️ Microfrontend Applications
+## 🏗️ Applications
 
 ### [mfe-shell](mfe-shell/) - Host Container
 **Port:** 3000  

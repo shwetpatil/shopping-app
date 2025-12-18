@@ -4,16 +4,16 @@
   "description": "Shell application for shopping app microfrontends",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "node ../../scripts/start-mfe.js mfe-shell dev",
     "build": "next build",
-    "start": "next start",
+    "start": "node ../../scripts/start-mfe.js mfe-shell start",
     "lint": "next lint",
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@shopping-app/mfe-contracts": "file:../../packages/mfe-contracts",
-    "@tanstack/react-query": "^5.0.0",
-    "@tanstack/react-query-devtools": "^5.0.0",
+    "@tanstack/react-query": "^5.90.12",
+    "@tanstack/react-query-devtools": "^5.91.1",
     "axios": "^1.6.0",
     "lucide-react": "^0.300.0",
     "next": "^14.0.0",

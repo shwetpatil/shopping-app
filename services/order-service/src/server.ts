@@ -6,7 +6,9 @@ import { kafkaClient } from './events/kafka';
 
 dotenv.config();
 
-const PORT = process.env.PORT || 3003;
+import { SERVICE_PORTS } from '@shopping-app/config';
+
+const PORT = process.env.PORT || SERVICE_PORTS.ORDER;
 
 const startServer = async () => {
   try {
@@ -19,8 +21,9 @@ const startServer = async () => {
     logger.info('Kafka producer connected');
 
     app.listen(PORT, () => {
-      logger.info(`Order service listening on port ${PORT}`);
+      logger.info(`📦 Order Service started on port ${PORT}`);
       logger.info(`Environment: ${process.env.NODE_ENV}`);
+      logger.info(`Health check: http://localhost:${PORT}/health`);
     });
   } catch (error) {
     logger.error('Failed to start server:', error);

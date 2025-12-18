@@ -5,16 +5,58 @@ import { useProducts } from '../hooks/use-product-queries';
 import { useRouter } from 'next/navigation';
 import { trackProductView } from '../lib/analytics';
 import { type Product } from '../lib/api';
+import { useProductWebSocket } from '../hooks/useProductWebSocket';
+import { useQueryClient } from '@tanstack/react-query';
+import { useEffect } from 'react';
 
 export default function ProductsPage() {
   const { data: products = [], isLoading, error, refetch } = useProducts();
   const router = useRouter();
+  const queryClient = useQueryClient();
+  const { onInventoryUpdate, onProductCreated, isConnected } = useProductWebSocket();
+
+  // Subscribe to real-time inventory updates
+  useEffect(() => {
+    const unsubInventory = onInventoryUpdate((data) => {
+      console.log('📦 Inventory update received:', data);
+      
+      // Update the product in the React Query cache
+      queryClient.setQueryData(['products'], (oldProducts: Product[] | undefined) => {
+        if (!oldProducts) return oldProducts;
+        
+        return oldProducts.map((product) =>
+          product.id === data.productId
+            ? { ...product, stock: data.stock }
+            : product
+        );
+      });
+    });
+
+    const unsubCreated = onProductCreated((data) => {
+      console.log('🆕 New product created:', data);
+      // Refetch products list when a new product is added
+      refetch();
+    });
+
+    return () => {
+      unsubInventory();
+      unsubCreated();
+    };
+  }, [onInventoryUpdate, onProductCreated, queryClient, refetch]);
 
   return (
     <div className="container mx-auto p-8">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold">Products</h1>
-        <p className="text-gray-600 mt-2">Browse our product catalog</p>
+      <div className="mb-8 flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold">Products</h1>
+          <p className="text-gray-600 mt-2">Browse our product catalog</p>
+        </div>
+        {isConnected && (
+          <div className="flex items-center gap-2 px-4 py-2 bg-green-50 border border-green-200 rounded-lg">
+            <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+            <span className="text-sm text-green-700 font-medium">Live Updates Active</span>
+          </div>
+        )}
       </div>
       
       {error && (

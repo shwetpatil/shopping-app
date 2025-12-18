@@ -31,6 +31,10 @@
     "dev:reviews": "cd apps/mfe-reviews && npm run dev",
     "dev:search": "cd apps/mfe-search && npm run dev",
     "dev:wishlist": "cd apps/mfe-wishlist && npm run dev",
+    "services:all": "./scripts/dev/start-all-services.sh",
+    "services:products": "./scripts/dev/start-products-dev.sh",
+    "services:stop": "./scripts/dev/stop-services.sh",
+    "services:check": "./scripts/test/check-status.sh",
     "build": "npm run build:packages && npm run build:apps",
     "build:packages": "npm run build --workspace=packages/*",
     "build:apps": "npm run build:shell && npm run build:cart && npm run build:products && npm run build:reviews && npm run build:search && npm run build:wishlist",
@@ -57,7 +61,7 @@
     "docker:down": "docker-compose -f docker-compose.mfe.yml down",
     "docker:logs": "docker-compose -f docker-compose.mfe.yml logs -f",
     "docker:clean": "docker-compose -f docker-compose.mfe.yml down -v --remove-orphans",
-    "db:seed:all": "./scripts/seed-all.sh",
+    "db:seed:all": "./scripts/database/seed-all.sh",
     "db:reset:all": "npm run db:seed:all"
   },
   "devDependencies": {
