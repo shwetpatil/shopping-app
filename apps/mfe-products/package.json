@@ -18,9 +18,9 @@
     "ecommerce"
   ],
   "scripts": {
-    "dev": "node ../../scripts/start-mfe.js mfe-products dev",
+    "dev": "next dev",
     "build": "next build",
-    "start": "node ../../scripts/start-mfe.js mfe-products start",
+    "start": "next start",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "type-check": "tsc --noEmit",

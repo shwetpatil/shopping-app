@@ -1,5 +1,7 @@
+
 import { Request, Response, NextFunction } from 'express';
 import { ProductService } from '../services/product.service';
+import { logger } from '@shopping-app/common';
 
 export class ProductController {
   private productService: ProductService;
@@ -10,8 +12,8 @@ export class ProductController {
 
   getProducts = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
+      logger.info('GET /api/v1/products called');
       const { page, limit, search, categoryId, brandId, isActive } = req.query;
-      
       const result = await this.productService.getProducts({
         page: page ? Number(page) : 1,
         limit: limit ? Number(limit) : 10,
@@ -20,7 +22,6 @@ export class ProductController {
         brandId: brandId as string,
         isActive: isActive === 'true',
       });
-
       res.status(200).json({
         success: true,
         data: result,

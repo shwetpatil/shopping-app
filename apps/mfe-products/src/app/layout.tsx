@@ -8,16 +8,19 @@ import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
 
+
 export const metadata: Metadata = {
   title: 'Products MFE',
   description: 'Products microfrontend with React Query',
   manifest: '/manifest.json',
-  themeColor: '#3b82f6',
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-  },
 };
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+};
+
+export const themeColor = '#3b82f6';
 
 export default function RootLayout({
   children,
