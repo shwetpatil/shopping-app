@@ -87,6 +87,9 @@ const nextConfig = {
     return config;
   },
   
+  // Configuration files are in the config/ directory
+  experimental: {},
+  
   // Security headers
   async headers() {
     return [
@@ -139,9 +142,6 @@ const nextConfig = {
       },
     ];
   },
-  
-  // Configuration files are in the config/ directory
-  experimental: {},
 };
 
 module.exports = withBundleAnalyzer(withPWA(nextConfig));

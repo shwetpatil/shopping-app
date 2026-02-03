@@ -2,7 +2,7 @@
 
 import { List } from 'react-window';
 import { ProductCard } from './product-card';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 
 interface Product {
   id: string;
@@ -28,22 +28,24 @@ export function VirtualProductGrid({
   onProductClick: _onProductClick,
   onAddToCart 
 }: VirtualProductGridProps) {
-  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+  const [dimensions, setDimensions] = useState({ width: 1024, height: 600 });
+  const [isClient, setIsClient] = useState(false);
   
   // Calculate responsive column count based on screen width
-  const getColumnCount = (width: number) => {
+  const getColumnCount = useCallback((width: number) => {
     if (width >= 1280) return 4; // xl: 4 columns
     if (width >= 1024) return 3; // lg: 3 columns
     if (width >= 768) return 2;  // md: 2 columns
     return 1;                     // sm: 1 column
-  };
+  }, []);
   
   useEffect(() => {
+    setIsClient(true);
+    
     const updateDimensions = () => {
-      setDimensions({
-        width: window.innerWidth - 48, // Account for padding
-        height: window.innerHeight - 200, // Account for header/footer
-      });
+      const width = Math.max(400, window.innerWidth - 48);
+      const height = Math.max(400, window.innerHeight - 200);
+      setDimensions({ width, height });
     };
     
     updateDimensions();
@@ -51,10 +53,14 @@ export function VirtualProductGrid({
     return () => window.removeEventListener('resize', updateDimensions);
   }, []);
   
-  if (dimensions.width === 0) {
-    return <div>Loading...</div>;
+  if (!isClient) {
+    return <div className="w-full py-12 text-center text-gray-500">Loading...</div>;
   }
   
+  if (!products || products.length === 0) {
+    return <div className="w-full py-12 text-center text-gray-500">No products available</div>;
+  }
+
   const columnCount = getColumnCount(dimensions.width);
   
   // Group products into rows
@@ -62,9 +68,17 @@ export function VirtualProductGrid({
   for (let i = 0; i < products.length; i += columnCount) {
     rows.push(products.slice(i, i + columnCount));
   }
+
+  if (rows.length === 0) {
+    return <div className="w-full py-12 text-center text-gray-500">No products available</div>;
+  }
   
   const Row = ({ index, style }: { index: number; style: React.CSSProperties }) => {
     const rowProducts = rows[index];
+    
+    if (!rowProducts) {
+      return null;
+    }
     
     return (
       <div style={style} className="flex gap-6 px-2">
@@ -84,11 +98,11 @@ export function VirtualProductGrid({
   };
   
   return (
-    <div className="w-full">
+    <div className="w-full" style={{ height: dimensions.height }}>
       <List
         height={dimensions.height}
         itemCount={rows.length}
-        itemSize={420} // Height of ProductCard + spacing
+        itemSize={420}
         width={dimensions.width}
       >
         {/* @ts-expect-error - react-window children typing issue */}
