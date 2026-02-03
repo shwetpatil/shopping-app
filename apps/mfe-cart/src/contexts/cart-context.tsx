@@ -84,6 +84,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
     // Track analytics
     // TODO: Import analytics from shared package
+    // eslint-disable-next-line no-console
     console.log('📊 Cart: Product added', {
       productId: product.id,
       productName: product.name,
@@ -91,6 +92,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     });
 
     // Emit event for other MFEs
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     window.dispatchEvent(new CustomEvent('cartUpdated', {
       detail: { action: 'add', productId: product.id, quantity }
     }));
@@ -100,6 +102,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     setItems((prev) => prev.filter((item) => item.product.id !== productId));
     
     // Emit event for other MFEs
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     window.dispatchEvent(new CustomEvent('cartUpdated', {
       detail: { action: 'remove', productId }
     }));
@@ -118,6 +121,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     );
     
     // Emit event for other MFEs
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     window.dispatchEvent(new CustomEvent('cartUpdated', {
       detail: { action: 'update', productId, quantity }
     }));
@@ -127,6 +131,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     setItems([]);
     
     // Emit event for other MFEs
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     window.dispatchEvent(new CustomEvent('cartUpdated', {
       detail: { action: 'clear' }
     }));

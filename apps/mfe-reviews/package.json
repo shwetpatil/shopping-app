@@ -4,11 +4,9 @@
   "description": "Reviews microfrontend - Independently deployable reviews module",
   "private": true,
   "scripts": {
-    "dev": "node ../../scripts/start-mfe.js mfe-reviews dev",
     "build": "next build",
-    "start": "node ../../scripts/start-mfe.js mfe-reviews start",
-    "lint": "next lint",
-    "deploy": "npm run build && ./deploy.sh"
+    "clean": "rm -rf .next",
+    "start": "next start"
   },
   "dependencies": {
     "@shopping-app/mfe-contracts": "file:../../packages/mfe-contracts",

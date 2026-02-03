@@ -131,9 +131,7 @@ export class InventoryService {
 
     await this.eventPublisher.publishInventoryReserved({
       orderId,
-      productId,
-      quantity,
-      reservationId: reservation.id,
+      items: [{ productId, quantity }],
     });
 
     logger.info('Stock reserved', { inventoryId: inventory.id, orderId, quantity });

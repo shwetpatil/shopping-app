@@ -114,3 +114,265 @@ src/server.ts(8,31): error TS2307: Cannot find module '@shopping-app/config' or 
   diagnosticCodes: [ 2307 ]
 }
 [31m[nodemon] app crashed - waiting for file changes before starting...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `ts-node src/server.ts`[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `ts-node src/server.ts`[39m
+/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:859
+    return new TSError(diagnosticText, diagnosticCodes, diagnostics);
+           ^
+TSError: ⨯ Unable to compile TypeScript:
+src/app.ts(24,9): error TS2769: No overload matches this call.
+  The last overload gave the following error.
+    Argument of type 'RateLimitRequestHandler' is not assignable to parameter of type 'PathParams'.
+src/app.ts(29,21): error TS6133: 'req' is declared but its value is never read.
+
+    at createTSError (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:859:12)
+    at reportTSError (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:863:19)
+    at getOutput (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:1077:36)
+    at Object.compile (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:1433:41)
+    at Module.m._compile (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:1617:30)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1623:10)
+    at Object.require.extensions.<computed> [as .ts] (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1266:32)
+    at Function.Module._load (node:internal/modules/cjs/loader:1091:12)
+    at Module.require (node:internal/modules/cjs/loader:1289:19) {
+  diagnosticCodes: [ 2769, 6133 ]
+}
+[31m[nodemon] app crashed - waiting for file changes before starting...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `ts-node src/server.ts`[39m
+/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:859
+    return new TSError(diagnosticText, diagnosticCodes, diagnostics);
+           ^
+TSError: ⨯ Unable to compile TypeScript:
+src/app.ts(24,9): error TS2769: No overload matches this call.
+  The last overload gave the following error.
+    Argument of type 'RateLimitRequestHandler' is not assignable to parameter of type 'PathParams'.
+src/app.ts(29,21): error TS6133: 'req' is declared but its value is never read.
+
+    at createTSError (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:859:12)
+    at reportTSError (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:863:19)
+    at getOutput (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:1077:36)
+    at Object.compile (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:1433:41)
+    at Module.m._compile (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:1617:30)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1623:10)
+    at Object.require.extensions.<computed> [as .ts] (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1266:32)
+    at Function.Module._load (node:internal/modules/cjs/loader:1091:12)
+    at Module.require (node:internal/modules/cjs/loader:1289:19) {
+  diagnosticCodes: [ 2769, 6133 ]
+}
+[31m[nodemon] app crashed - waiting for file changes before starting...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `ts-node src/server.ts`[39m
+/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:859
+    return new TSError(diagnosticText, diagnosticCodes, diagnostics);
+           ^
+TSError: ⨯ Unable to compile TypeScript:
+src/app.ts(24,9): error TS2769: No overload matches this call.
+  The last overload gave the following error.
+    Argument of type 'RateLimitRequestHandler' is not assignable to parameter of type 'PathParams'.
+src/app.ts(29,21): error TS6133: 'req' is declared but its value is never read.
+
+    at createTSError (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:859:12)
+    at reportTSError (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:863:19)
+    at getOutput (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:1077:36)
+    at Object.compile (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:1433:41)
+    at Module.m._compile (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:1617:30)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1623:10)
+    at Object.require.extensions.<computed> [as .ts] (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1266:32)
+    at Function.Module._load (node:internal/modules/cjs/loader:1091:12)
+    at Module.require (node:internal/modules/cjs/loader:1289:19) {
+  diagnosticCodes: [ 2769, 6133 ]
+}
+[31m[nodemon] app crashed - waiting for file changes before starting...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `ts-node src/server.ts`[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `ts-node src/server.ts`[39m
+[32minfo[39m: Redis Client Connected {"service":"unknown-service","timestamp":"2025-12-19 15:22:56"}
+[32minfo[39m: Redis client connected {"service":"unknown-service","timestamp":"2025-12-19 15:22:56"}
+[32minfo[39m: Redis connected successfully {"service":"unknown-service","timestamp":"2025-12-19 15:22:56"}
+[32minfo[39m: 🛒 Cart Service started on port 4006 {"service":"unknown-service","timestamp":"2025-12-19 15:22:56"}
+[32minfo[39m: Environment: development {"service":"unknown-service","timestamp":"2025-12-19 15:22:56"}
+[32minfo[39m: Health check: http://localhost:4006/health {"service":"unknown-service","timestamp":"2025-12-19 15:22:56"}
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `ts-node src/server.ts`[39m
+[32minfo[39m: Redis Client Connected {"service":"unknown-service","timestamp":"2025-12-19 15:23:12"}
+[32minfo[39m: Redis client connected {"service":"unknown-service","timestamp":"2025-12-19 15:23:12"}
+[32minfo[39m: Redis connected successfully {"service":"unknown-service","timestamp":"2025-12-19 15:23:12"}
+Error: listen EADDRINUSE: address already in use :::4006
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at Server.listen (node:net:2067:7)
+    at Function.listen (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/express@4.22.1/node_modules/express/lib/application.js:635:24)
+    at startServer (/Users/siddharthy/Shweta-S/Learn/shopping-app/services/cart-service/src/server.ts:17:9)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5) {
+  code: 'EADDRINUSE',
+  errno: -48,
+  syscall: 'listen',
+  address: '::',
+  port: 4006
+}
+[31m[nodemon] app crashed - waiting for file changes before starting...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `ts-node src/server.ts`[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `ts-node src/server.ts`[39m
+/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:859
+    return new TSError(diagnosticText, diagnosticCodes, diagnostics);
+           ^
+TSError: ⨯ Unable to compile TypeScript:
+src/server.ts(8,31): error TS2307: Cannot find module '../../../../packages/config/dist/index.js' or its corresponding type declarations.
+
+    at createTSError (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:859:12)
+    at reportTSError (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:863:19)
+    at getOutput (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:1077:36)
+    at Object.compile (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:1433:41)
+    at Module.m._compile (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:1617:30)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1623:10)
+    at Object.require.extensions.<computed> [as .ts] (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1266:32)
+    at Function.Module._load (node:internal/modules/cjs/loader:1091:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12) {
+  diagnosticCodes: [ 2307 ]
+}
+[31m[nodemon] app crashed - waiting for file changes before starting...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `ts-node src/server.ts`[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `ts-node src/server.ts`[39m
+/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:859
+    return new TSError(diagnosticText, diagnosticCodes, diagnostics);
+           ^
+TSError: ⨯ Unable to compile TypeScript:
+src/server.ts(8,31): error TS2307: Cannot find module '../../../../packages/config/dist/index.js' or its corresponding type declarations.
+
+    at createTSError (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:859:12)
+    at reportTSError (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:863:19)
+    at getOutput (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:1077:36)
+    at Object.compile (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:1433:41)
+    at Module.m._compile (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:1617:30)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1623:10)
+    at Object.require.extensions.<computed> [as .ts] (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1266:32)
+    at Function.Module._load (node:internal/modules/cjs/loader:1091:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12) {
+  diagnosticCodes: [ 2307 ]
+}
+[31m[nodemon] app crashed - waiting for file changes before starting...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `ts-node src/server.ts`[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `ts-node src/server.ts`[39m
+/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:859
+    return new TSError(diagnosticText, diagnosticCodes, diagnostics);
+           ^
+TSError: ⨯ Unable to compile TypeScript:
+src/server.ts(8,58): error TS2307: Cannot find module '@shopping-app/config' or its corresponding type declarations.
+
+    at createTSError (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:859:12)
+    at reportTSError (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:863:19)
+    at getOutput (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:1077:36)
+    at Object.compile (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:1433:41)
+    at Module.m._compile (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:1617:30)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1623:10)
+    at Object.require.extensions.<computed> [as .ts] (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1266:32)
+    at Function.Module._load (node:internal/modules/cjs/loader:1091:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12) {
+  diagnosticCodes: [ 2307 ]
+}
+[31m[nodemon] app crashed - waiting for file changes before starting...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `ts-node src/server.ts`[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `ts-node src/server.ts`[39m
+/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:859
+    return new TSError(diagnosticText, diagnosticCodes, diagnostics);
+           ^
+TSError: ⨯ Unable to compile TypeScript:
+src/server.ts(8,58): error TS2307: Cannot find module '@shopping-app/config' or its corresponding type declarations.
+
+    at createTSError (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:859:12)
+    at reportTSError (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:863:19)
+    at getOutput (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:1077:36)
+    at Object.compile (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:1433:41)
+    at Module.m._compile (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:1617:30)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1623:10)
+    at Object.require.extensions.<computed> [as .ts] (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1266:32)
+    at Function.Module._load (node:internal/modules/cjs/loader:1091:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12) {
+  diagnosticCodes: [ 2307 ]
+}
+[31m[nodemon] app crashed - waiting for file changes before starting...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `ts-node src/server.ts`[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `ts-node src/server.ts`[39m
+Error: Cannot find module '../../../../packages/config/dist/index.js'
+Require stack:
+- /Users/siddharthy/Shweta-S/Learn/shopping-app/services/cart-service/src/server.ts
+    at Function.Module._resolveFilename (node:internal/modules/cjs/loader:1207:15)
+    at Function.Module._resolveFilename.sharedData.moduleResolveFilenameHook.installedValue [as _resolveFilename] (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/@cspotcode+source-map-support@0.8.1/node_modules/@cspotcode/source-map-support/source-map-support.js:811:30)
+    at Function.Module._load (node:internal/modules/cjs/loader:1038:27)
+    at Module.require (node:internal/modules/cjs/loader:1289:19)
+    at require (node:internal/modules/helpers:182:18)
+    at Object.<anonymous> (/Users/siddharthy/Shweta-S/Learn/shopping-app/services/cart-service/src/server.ts:9:27)
+    at Module._compile (node:internal/modules/cjs/loader:1521:14)
+    at Module.m._compile (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:1618:23)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1623:10)
+    at Object.require.extensions.<computed> [as .ts] (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:1621:12) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/Users/siddharthy/Shweta-S/Learn/shopping-app/services/cart-service/src/server.ts'
+  ]
+}
+[31m[nodemon] app crashed - waiting for file changes before starting...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `ts-node src/server.ts`[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `ts-node src/server.ts`[39m
+Error: Cannot find module '../../../../packages/config/dist/index.js'
+Require stack:
+- /Users/siddharthy/Shweta-S/Learn/shopping-app/services/cart-service/src/server.ts
+    at Function.Module._resolveFilename (node:internal/modules/cjs/loader:1207:15)
+    at Function.Module._resolveFilename.sharedData.moduleResolveFilenameHook.installedValue [as _resolveFilename] (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/@cspotcode+source-map-support@0.8.1/node_modules/@cspotcode/source-map-support/source-map-support.js:811:30)
+    at Function.Module._load (node:internal/modules/cjs/loader:1038:27)
+    at Module.require (node:internal/modules/cjs/loader:1289:19)
+    at require (node:internal/modules/helpers:182:18)
+    at Object.<anonymous> (/Users/siddharthy/Shweta-S/Learn/shopping-app/services/cart-service/src/server.ts:9:27)
+    at Module._compile (node:internal/modules/cjs/loader:1521:14)
+    at Module.m._compile (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:1618:23)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1623:10)
+    at Object.require.extensions.<computed> [as .ts] (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/ts-node@10.9.2_@types+node@20.19.27_typescript@5.9.3/node_modules/ts-node/src/index.ts:1621:12) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/Users/siddharthy/Shweta-S/Learn/shopping-app/services/cart-service/src/server.ts'
+  ]
+}
+[31m[nodemon] app crashed - waiting for file changes before starting...[39m

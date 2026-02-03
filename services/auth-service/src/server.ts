@@ -5,7 +5,7 @@ import { prisma } from './db/prisma';
 
 dotenv.config();
 
-import { SERVICE_PORTS } from '@shopping-app/config';
+import { SERVICE_PORTS } from '@shopping-app/config/ports';
 
 const PORT = process.env.PORT || SERVICE_PORTS.AUTH;
 

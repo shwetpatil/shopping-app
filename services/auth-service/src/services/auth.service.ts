@@ -124,16 +124,16 @@ export class AuthService {
   private generateAccessToken(userId: string, email: string, role: string): string {
     return jwt.sign(
       { id: userId, email, role },
-      process.env.JWT_SECRET!,
-      { expiresIn: process.env.JWT_EXPIRES_IN || '15m' }
+      process.env.JWT_SECRET as string,
+      { expiresIn: process.env.JWT_EXPIRES_IN || '15m' } as jwt.SignOptions
     );
   }
 
   private async generateRefreshToken(userId: string): Promise<string> {
     const token = jwt.sign(
       { userId },
-      process.env.JWT_REFRESH_SECRET!,
-      { expiresIn: process.env.JWT_REFRESH_EXPIRES_IN || '7d' }
+      process.env.JWT_REFRESH_SECRET as string,
+      { expiresIn: process.env.JWT_REFRESH_EXPIRES_IN || '7d' } as jwt.SignOptions
     );
 
     // Store refresh token in database

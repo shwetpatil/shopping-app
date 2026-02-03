@@ -3,7 +3,7 @@ import { AuthController } from '../controllers/auth.controller';
 import { validate } from '@shopping-app/common';
 import { registerSchema, loginSchema, refreshTokenSchema } from '../validators/auth.validator';
 
-const router = Router();
+const router: Router = Router();
 const authController = new AuthController();
 
 router.post('/register', validate(registerSchema), authController.register);

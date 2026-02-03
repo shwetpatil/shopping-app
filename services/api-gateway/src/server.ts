@@ -1,11 +1,11 @@
 import dotenv from 'dotenv';
 import { logger } from '@shopping-app/common';
-import { SERVICE_PORTS, SERVICE_URLS } from '@shopping-app/config';
+import { SERVICE_PORTS } from '@shopping-app/config';
 import app, { initializeGraphQL } from './app';
 
 dotenv.config();
 
-const PORT = process.env.PORT || SERVICE_PORTS.API_GATEWAY;
+const PORT = process.env.PORT || config.SERVICE_PORTS.API_GATEWAY;
 
 const startServer = async () => {
   try {
@@ -18,9 +18,9 @@ const startServer = async () => {
       logger.info(`GraphQL endpoint: http://localhost:${PORT}/graphql`);
       logger.info(`Health check: http://localhost:${PORT}/health`);
       logger.info('Service routes:');
-      logger.info(`  Auth:    ${process.env.AUTH_SERVICE_URL || SERVICE_URLS.AUTH}`);
-      logger.info(`  Product: ${process.env.PRODUCT_SERVICE_URL || SERVICE_URLS.PRODUCT}`);
-      logger.info(`  Order:   ${process.env.ORDER_SERVICE_URL || SERVICE_URLS.ORDER}`);
+      logger.info(`  Auth:    ${process.env.AUTH_SERVICE_URL || config.SERVICE_URLS.AUTH}`);
+      logger.info(`  Product: ${process.env.PRODUCT_SERVICE_URL || config.SERVICE_URLS.PRODUCT}`);
+      logger.info(`  Order:   ${process.env.ORDER_SERVICE_URL || config.SERVICE_URLS.ORDER}`);
     });
   } catch (error) {
     logger.error('Failed to start server:', error);

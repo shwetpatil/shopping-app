@@ -4,40 +4,81 @@
 
 ---
 
-## 🎯 What is This Platform?
+## 📚 Documentation Index
 
-This is a modern B2B shopping platform demonstrating **industry best practices** for building scalable microfrontend applications:
-
-- **6 Independent Microfrontends**: Shell, Search, Products, Cart, Wishlist, Reviews
-- **Type-Safe Contracts**: Shared TypeScript definitions prevent integration bugs
-- **Event-Driven Communication**: Loosely coupled MFEs communicate via typed events
-- **Modern Stack**: Next.js 14+, React 18+, TypeScript 5+, Jest, Module Federation
-- **Production Features**: Error boundaries, health checks, feature flags, monitoring, retry/caching
-
-**Current Status**: ✅ Production Ready | 96 Tests Passing | 67% Coverage | 100% B2B Compliant
-
----
-
-## 🚀 Quick Navigation
-
-| If you want to... | Go here |
-|-------------------|---------|
-| **Get started in 5 minutes** | [Quick Start Guide](guides/QUICK_START.md) |
-| **Understand the architecture** | [Microfrontend Architecture ADR](adr/001-microfrontend-architecture.md) |
-| **Learn best practices** | [Best Practices Guide](architecture/BEST_PRACTICES.md) |
-| **See test results** | [Test Implementation Summary](testing/TEST_IMPLEMENTATION_SUMMARY.md) |
-| **Understand decisions** | [ADR Index](adr/README.md) |
-| **Deploy to production** | [Deployment Guide](guides/DEPLOYMENT.md) |
-| **Work with contracts** | [Using Contracts](examples/USING_CONTRACTS.md) |
-| **Daily development** | [Development Guide](guides/DEVELOPMENT.md) |
+- [Quick Start Guide](guides/QUICK_START.md)
+- [Development Guide](guides/DEVELOPMENT.md)
+- [Deployment Guide](guides/DEPLOYMENT.md)
+- [MFE Communication Guide](guides/MFE_COMMUNICATION.md)
+- [React Query Guide](guides/REACT_QUERY_GUIDE.md)
+- [Best Practices](architecture/BEST_PRACTICES.md)
+- [Microfrontend B2B Guide](architecture/MICROFRONTEND_B2B_GUIDE.md)
+- [Backend Best Practices](architecture/BACKEND_BEST_PRACTICES.md)
+- [B2B Compliance](architecture/B2B_COMPLIANCE.md)
+- [ADR Index](adr/README.md)
+- [All ADRs](adr/)
+- [API Reference](api/GRAPHQL.md)
+- [Examples](examples/USING_CONTRACTS.md)
+- [Testing Summary](testing/TEST_IMPLEMENTATION_SUMMARY.md)
+- [Operations](operations/)
+- [System Docs](system/)
 
 ---
 
-## 📚 Documentation Structure
+## 🏗️ Documentation Structure
 
-### 🚀 Getting Started (New Developers Start Here!)
+### Guides
+- **QUICK_START.md**: Fastest way to get running locally
+- **DEVELOPMENT.md**: Daily workflows, local setup, scripts
+- **DEPLOYMENT.md**: How to deploy MFEs independently
+- **MFE_COMMUNICATION.md**: Event-driven patterns and examples
+- **REACT_QUERY_GUIDE.md**: Data fetching and caching best practices
 
-1. **[Quick Start Guide](guides/QUICK_START.md)** - Run locally in 5 minutes
+### Architecture
+- **BEST_PRACTICES.md**: 20+ best practices for MFEs and microservices
+- **MICROFRONTEND_B2B_GUIDE.md**: System design overview
+- **BACKEND_BEST_PRACTICES.md**: Microservices, database, API, and backend patterns
+- **B2B_COMPLIANCE.md**: B2B requirements and verification
+
+### ADRs (Architecture Decision Records)
+- **README.md**: ADR index and rationale
+- **001-microfrontend-architecture.md**: Why MFEs?
+- **002-module-federation.md**: Runtime composition
+- **003-shared-contracts-package.md**: Type safety
+- **004-event-driven-communication.md**: Event bus
+- ...and more
+
+### Operations & System
+- **operations/**: Audit logging, incident management, monitoring, runbooks, secrets
+- **system/**: Capacity planning, disaster recovery, glossary, SLAs
+
+### Examples & API
+- **examples/USING_CONTRACTS.md**: How to use the contracts package
+- **api/GRAPHQL.md**: API reference and usage
+
+### Testing
+- **testing/TEST_IMPLEMENTATION_SUMMARY.md**: Test status and coverage
+
+---
+
+## 🔗 Quick Links
+- [Main README](../README.md)
+- [Packages Directory](../packages/)
+- [Apps Directory](../apps/)
+
+---
+
+## 🏆 Key Principles
+- Type safety everywhere (contracts)
+- Event-driven, loosely coupled MFEs
+- Independent deployments
+- Error boundaries and health checks
+- Performance monitoring and optimization
+- Security and compliance
+
+---
+
+**For details, see each section above or the [Quick Reference](QUICK_REFERENCE.md).**
 2. **[Architecture Overview](architecture/MICROFRONTEND_B2B_GUIDE.md)** - Understand the system
 3. **[Best Practices](architecture/BEST_PRACTICES.md)** - How we build features
 4. **[Development Guide](guides/DEVELOPMENT.md)** - Daily workflows

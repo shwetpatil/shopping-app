@@ -8,7 +8,7 @@ export class BFFController {
     this.bffService = new BFFService();
   }
 
-  getHomePageData = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  getHomePageData = async (_req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const data = await this.bffService.getHomePageData();
       res.status(200).json({

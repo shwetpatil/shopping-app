@@ -10,7 +10,8 @@ export class PaymentEventConsumer {
   }
 
   async start() {
-    await kafkaClient.subscribe(TOPICS.PAYMENT_AUTHORIZED, async (message) => {
+    await kafkaClient.subscribe('inventory-service-group', [TOPICS.PAYMENT_AUTHORIZED], async (payload) => {
+      const message = payload.message.value ? JSON.parse(payload.message.value.toString()) : {};
       try {
         const event = message as PaymentAuthorizedEvent;
         logger.info('Received payment.authorized event', { orderId: event.data.orderId });
@@ -24,7 +25,8 @@ export class PaymentEventConsumer {
       }
     });
 
-    await kafkaClient.subscribe(TOPICS.PAYMENT_FAILED, async (message) => {
+    await kafkaClient.subscribe('inventory-service-group', [TOPICS.PAYMENT_FAILED], async (payload) => {
+      const message = payload.message.value ? JSON.parse(payload.message.value.toString()) : {};
       try {
         const event = message as any;
         logger.info('Received payment.failed event', { orderId: event.data.orderId });

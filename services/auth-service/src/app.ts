@@ -1,7 +1,7 @@
 import express, { Application, Request, Response } from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
-import rateLimit from 'express-rate-limit';
+import rateLimit, { RateLimitRequestHandler } from 'express-rate-limit';
 import { errorHandler, requestLogger } from '@shopping-app/common';
 import authRoutes from './routes/auth.routes';
 
@@ -15,13 +15,13 @@ app.use(cors({
 }));
 
 // Rate limiting
-const limiter = rateLimit({
+const limiter: RateLimitRequestHandler = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 100, // limit each IP to 100 requests per windowMs
   message: 'Too many requests from this IP, please try again later.',
 });
 
-app.use(limiter);
+app.use(limiter as unknown as express.RequestHandler);
 
 // Body parsing
 app.use(express.json());
@@ -31,7 +31,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(requestLogger);
 
 // Health check
-app.get('/health', (req: Request, res: Response) => {
+app.get('/health', (_req: Request, res: Response) => {
   res.status(200).json({ status: 'healthy', service: 'auth-service' });
 });
 

@@ -580,3 +580,97 @@ Emitted 'error' event on Server instance at:
 
 Node.js v20.19.5
 [31m[nodemon] app crashed - waiting for file changes before starting...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `tsx src/server.ts`[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `tsx src/server.ts`[39m
+[HPM] Proxy created: /  -> http://localhost:4006
+[HPM] Proxy rewrite rule created: "^/api/v1/cart" ~> "/api/cart"
+[HPM] Proxy created: /  -> http://localhost:4005
+[HPM] Proxy rewrite rule created: "^/api/v1/payments" ~> "/api/payments"
+[HPM] Proxy created: /  -> http://localhost:4005
+[HPM] Proxy rewrite rule created: "^/api/v1/webhooks" ~> "/api/webhooks"
+[HPM] Proxy created: /  -> http://localhost:4007
+[HPM] Proxy rewrite rule created: "^/api/v1/inventory" ~> "/api/inventory"
+[HPM] Proxy created: /  -> http://localhost:4008
+[HPM] Proxy rewrite rule created: "^/api/v1/notifications" ~> "/api/notifications"
+[HPM] Proxy created: /  -> http://localhost:4001
+[HPM] Proxy rewrite rule created: "^/api/v1/auth" ~> "/api/auth"
+[HPM] Proxy created: /  -> http://localhost:4002
+[HPM] Proxy rewrite rule created: "^/api/v1/products" ~> "/api/products"
+[HPM] Proxy created: /  -> http://localhost:4002
+[HPM] Proxy rewrite rule created: "^/api/v1/categories" ~> "/api/categories"
+[HPM] Proxy created: /  -> http://localhost:4002
+[HPM] Proxy rewrite rule created: "^/api/v1/brands" ~> "/api/brands"
+[HPM] Proxy created: /  -> http://localhost:4003
+[HPM] Proxy rewrite rule created: "^/api/v1/orders" ~> "/api/orders"
+🚀 GraphQL endpoint available at /graphql
+node:events:502
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::4000
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at Server.listen (node:net:2067:7)
+    at Function.listen (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/express@4.22.1/node_modules/express/lib/application.js:635:24)
+    at startServer (/Users/siddharthy/Shweta-S/Learn/shopping-app/services/api-gateway/src/server.ts:15:9)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1944:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  code: 'EADDRINUSE',
+  errno: -48,
+  syscall: 'listen',
+  address: '::',
+  port: 4000
+}
+
+Node.js v20.19.5
+[31m[nodemon] app crashed - waiting for file changes before starting...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `tsx src/server.ts`[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `tsx src/server.ts`[39m
+[HPM] Proxy created: /  -> http://localhost:4006
+[HPM] Proxy rewrite rule created: "^/api/v1/cart" ~> "/api/cart"
+[HPM] Proxy created: /  -> http://localhost:4005
+[HPM] Proxy rewrite rule created: "^/api/v1/payments" ~> "/api/payments"
+[HPM] Proxy created: /  -> http://localhost:4005
+[HPM] Proxy rewrite rule created: "^/api/v1/webhooks" ~> "/api/webhooks"
+[HPM] Proxy created: /  -> http://localhost:4007
+[HPM] Proxy rewrite rule created: "^/api/v1/inventory" ~> "/api/inventory"
+[HPM] Proxy created: /  -> http://localhost:4008
+[HPM] Proxy rewrite rule created: "^/api/v1/notifications" ~> "/api/notifications"
+[HPM] Proxy created: /  -> http://localhost:4001
+[HPM] Proxy rewrite rule created: "^/api/v1/auth" ~> "/api/auth"
+[HPM] Proxy created: /  -> http://localhost:4002
+[HPM] Proxy rewrite rule created: "^/api/v1/products" ~> "/api/products"
+[HPM] Proxy created: /  -> http://localhost:4002
+[HPM] Proxy rewrite rule created: "^/api/v1/categories" ~> "/api/categories"
+[HPM] Proxy created: /  -> http://localhost:4002
+[HPM] Proxy rewrite rule created: "^/api/v1/brands" ~> "/api/brands"
+[HPM] Proxy created: /  -> http://localhost:4003
+[HPM] Proxy rewrite rule created: "^/api/v1/orders" ~> "/api/orders"
+🚀 GraphQL endpoint available at /graphql
+node:events:502
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::4000
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at Server.listen (node:net:2067:7)
+    at Function.listen (/Users/siddharthy/Shweta-S/Learn/shopping-app/node_modules/.pnpm/express@4.22.1/node_modules/express/lib/application.js:635:24)
+    at startServer (/Users/siddharthy/Shweta-S/Learn/shopping-app/services/api-gateway/src/server.ts:15:9)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1944:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  code: 'EADDRINUSE',
+  errno: -48,
+  syscall: 'listen',
+  address: '::',
+  port: 4000
+}
+
+Node.js v20.19.5
+[31m[nodemon] app crashed - waiting for file changes before starting...[39m

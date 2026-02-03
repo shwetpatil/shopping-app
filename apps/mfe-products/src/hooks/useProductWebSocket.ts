@@ -23,7 +23,7 @@ type GenericEventCallback = (data: any) => void;
 
 export const useProductWebSocket = () => {
   const socketRef = useRef<Socket | null>(null);
-  const handlersRef = useRef<Map<string, Set<Function>>>(new Map());
+  const handlersRef = useRef<Map<string, Set<(...args: unknown[]) => void>>>(new Map());
 
   useEffect(() => {
     // Initialize socket connection
@@ -38,14 +38,17 @@ export const useProductWebSocket = () => {
     const socket = socketRef.current;
 
     socket.on('connect', () => {
+      // eslint-disable-next-line no-console
       console.log('✅ WebSocket connected to Product Service');
     });
 
     socket.on('disconnect', () => {
+      // eslint-disable-next-line no-console
       console.log('❌ WebSocket disconnected');
     });
 
     socket.on('connect_error', (error) => {
+      // eslint-disable-next-line no-console
       console.error('WebSocket connection error:', error);
     });
 
@@ -57,7 +60,7 @@ export const useProductWebSocket = () => {
     };
   }, []);
 
-  const subscribe = useCallback((event: string, handler: Function) => {
+  const subscribe = useCallback((event: string, handler: (...args: unknown[]) => void) => {
     if (!socketRef.current) return;
 
     if (!handlersRef.current.has(event)) {
@@ -68,7 +71,7 @@ export const useProductWebSocket = () => {
     socketRef.current.on(event, handler as any);
   }, []);
 
-  const unsubscribe = useCallback((event: string, handler: Function) => {
+  const unsubscribe = useCallback((event: string, handler: (...args: unknown[]) => void) => {
     if (!socketRef.current) return;
 
     handlersRef.current.get(event)?.delete(handler);
@@ -88,13 +91,27 @@ export const useProductWebSocket = () => {
   }, []);
 
   const onInventoryUpdate = useCallback((callback: InventoryUpdateCallback) => {
-    subscribe('inventory:update', callback);
-    return () => unsubscribe('inventory:update', callback);
+    // Cast callback to (...args: unknown[]) => void to match subscribe signature
+    const handler = ((data: unknown) => {
+      // Type guard to ensure data is InventoryUpdate
+      if (typeof data === 'object' && data !== null && 'productId' in data && 'stock' in data && 'timestamp' in data) {
+        callback(data as InventoryUpdate);
+      }
+    }) as (...args: unknown[]) => void;
+    subscribe('inventory:update', handler);
+    return () => unsubscribe('inventory:update', handler);
   }, [subscribe, unsubscribe]);
 
   const onProductUpdate = useCallback((callback: ProductUpdateCallback) => {
-    subscribe('product:update', callback);
-    return () => unsubscribe('product:update', callback);
+    // Cast callback to (...args: unknown[]) => void to match subscribe signature
+    const handler = ((data: unknown) => {
+      // Type guard to ensure data is ProductUpdate
+      if (typeof data === 'object' && data !== null && 'productId' in data && 'updates' in data && 'timestamp' in data) {
+        callback(data as ProductUpdate);
+      }
+    }) as (...args: unknown[]) => void;
+    subscribe('product:update', handler);
+    return () => unsubscribe('product:update', handler);
   }, [subscribe, unsubscribe]);
 
   const onProductCreated = useCallback((callback: GenericEventCallback) => {

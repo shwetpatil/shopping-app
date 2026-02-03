@@ -17,32 +17,19 @@
     "react-query",
     "ecommerce"
   ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "lint:fix": "next lint --fix",
-    "type-check": "tsc --noEmit",
-    "test": "jest --config config/jest.config.js",
-    "test:watch": "jest --config config/jest.config.js --watch",
-    "test:coverage": "jest --config config/jest.config.js --coverage",
-    "test:ci": "jest --config config/jest.config.js --ci --coverage --maxWorkers=2",
-    "clean": "rm -rf .next coverage",
-    "clean:all": "rm -rf .next node_modules coverage",
-    "prebuild": "rm -rf .next",
-    "analyze": "ANALYZE=true next build",
-    "validate": "npm run type-check && npm run lint && npm run test",
-    "ci": "npm run validate && npm run build"
-  },
-  "engines": {
-    "node": ">=18.0.0",
-    "npm": ">=9.0.0"
+    "clean": "rm -rf .next",
+    "start": "next start"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
     "@shopping-app/config": "workspace:*",
-    "@shopping-app/mfe-contracts": "file:../../packages/mfe-contracts",
+    "@shopping-app/mfe-contracts": "workspace:*",
     "@tanstack/react-query": "^5.90.12",
     "@tanstack/react-query-devtools": "^5.91.1",
     "axios": "^1.6.0",

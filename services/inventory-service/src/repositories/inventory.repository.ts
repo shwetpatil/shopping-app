@@ -80,7 +80,7 @@ export class InventoryRepository {
     reference?: string,
     notes?: string
   ) {
-    return prisma.$transaction(async (tx) => {
+    return prisma.$transaction(async (tx: any) => {
       const inventory = await tx.inventory.update({
         where: { id },
         data: {

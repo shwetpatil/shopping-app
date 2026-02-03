@@ -1,0 +1,22 @@
+{
+  "../../../node_modules/.pnpm/@tanstack+query-devtools@5.91.1/node_modules/@tanstack/query-devtools/build/index.js -> ./DevtoolsComponent/Q7LWSL4U.js": {
+    "id": null,
+    "files": []
+  },
+  "../../../node_modules/.pnpm/@tanstack+query-devtools@5.91.1/node_modules/@tanstack/query-devtools/build/index.js -> ./DevtoolsPanelComponent/VLTTJS3N.js": {
+    "id": null,
+    "files": []
+  },
+  "app/page.tsx -> @/components/remote-loaders/products-loader": {
+    "id": 5662,
+    "files": [
+      "static/chunks/662.95de8022d01d46ca.js"
+    ]
+  },
+  "app/page.tsx -> @/components/remote-loaders/search-loader": {
+    "id": 2815,
+    "files": [
+      "static/chunks/815.3ac75d4dbe603254.js"
+    ]
+  }
+}

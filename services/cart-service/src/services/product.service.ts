@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { logger, BadRequestError } from '@shopping-app/common';
-import { SERVICE_URLS } from '@shopping-app/config';
+import { SERVICE_URLS } from '../../../../packages/config/dist/index.js';
 
 const PRODUCT_SERVICE_URL = process.env.PRODUCT_SERVICE_URL || SERVICE_URLS.PRODUCT;
 

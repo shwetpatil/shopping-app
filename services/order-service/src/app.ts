@@ -1,7 +1,7 @@
 import express, { Application, Request, Response } from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
-import rateLimit from 'express-rate-limit';
+import rateLimit, { RateLimitRequestHandler } from 'express-rate-limit';
 import { errorHandler, requestLogger } from '@shopping-app/common';
 import orderRoutes from './routes/order.routes';
 
@@ -15,7 +15,7 @@ app.use(cors({
 }));
 
 // Rate limiting
-const limiter = rateLimit({
+const limiter: RateLimitRequestHandler = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 100,
   message: 'Too many requests from this IP, please try again later.',

@@ -1,7 +1,7 @@
 import { BadRequestError, logger, cartCache } from '@shopping-app/common';
 import { CartRepository } from '../repositories/cart.repository';
 import { ProductService } from './product.service';
-import { Cart, CartItem } from '../domain/cart';
+import { Cart } from '../domain/cart';
 
 export class CartService {
   private cartRepository: CartRepository;

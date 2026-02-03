@@ -4,13 +4,13 @@ import { kafkaClient, TOPICS } from '../events/kafka';
 export class EventPublisher {
   async publishInventoryReserved(data: {
     orderId: string;
-    productId: string;
-    quantity: number;
-    reservationId: string;
+    items: Array<{ productId: string; quantity: number }>;
   }) {
     await kafkaClient.publish(TOPICS.INVENTORY_RESERVED, {
-      eventType: 'inventory.reserved',
-      timestamp: new Date().toISOString(),
+      id: `${data.orderId}-${Date.now()}`,
+      timestamp: new Date(),
+      type: 'inventory.reserved',
+      version: '1',
       data,
     });
 
@@ -23,8 +23,10 @@ export class EventPublisher {
     quantity: number;
   }) {
     await kafkaClient.publish(TOPICS.INVENTORY_RELEASED, {
-      eventType: 'inventory.released',
-      timestamp: new Date().toISOString(),
+      id: `${data.orderId}-${Date.now()}`,
+      timestamp: new Date(),
+      type: 'inventory.released',
+      version: '1',
       data,
     });
 
@@ -33,8 +35,10 @@ export class EventPublisher {
 
   async publishLowStock(inventory: any) {
     await kafkaClient.publish(TOPICS.INVENTORY_LOW_STOCK, {
-      eventType: 'inventory.low-stock',
-      timestamp: new Date().toISOString(),
+      id: `${inventory.id}-${Date.now()}`,
+      timestamp: new Date(),
+      type: 'inventory.low-stock',
+      version: '1',
       data: {
         inventoryId: inventory.id,
         productId: inventory.productId,

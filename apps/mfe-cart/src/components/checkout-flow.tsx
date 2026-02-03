@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { CreditCard, Truck, Check } from 'lucide-react';
 
 interface CheckoutFlowProps {
-  onComplete?: (orderData: any) => void;
+  onComplete?: (orderData: Record<string, unknown>) => void;
 }
 
 export function CheckoutFlow({ onComplete }: CheckoutFlowProps) {

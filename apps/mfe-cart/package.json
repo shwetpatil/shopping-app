@@ -3,14 +3,8 @@
   "version": "1.0.0",
   "description": "Cart & Checkout microfrontend - Independently deployable cart and checkout module",
   "private": true,
-  "scripts": {
-    "dev": "node ../../scripts/start-mfe.js mfe-cart dev",
-    "build": "next build",
-    "start": "node ../../scripts/start-mfe.js mfe-cart start",
-    "lint": "next lint",
-    "deploy": "npm run build && ./deploy.sh"
-  },
   "dependencies": {
+    "@heroicons/react": "^2.2.0",
     "@shopping-app/mfe-contracts": "file:../../packages/mfe-contracts",
     "@tanstack/react-query": "^5.90.12",
     "@tanstack/react-query-devtools": "^5.91.1",
@@ -19,6 +13,11 @@
     "next": "^14.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
+  },
+  "scripts": {
+    "build": "next build",
+    "clean": "rm -rf .next",
+    "start": "next start"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",

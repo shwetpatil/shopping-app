@@ -10,7 +10,8 @@ export class OrderEventConsumer {
   }
 
   async start() {
-    await kafkaClient.subscribe(TOPICS.ORDER_PLACED, async (message) => {
+    await kafkaClient.subscribe('inventory-service-group', [TOPICS.ORDER_PLACED], async (payload) => {
+      const message = payload.message.value ? JSON.parse(payload.message.value.toString()) : {};
       try {
         const event = message as OrderPlacedEvent;
         logger.info('Received order.placed event', { orderId: event.data.orderId });
@@ -31,7 +32,8 @@ export class OrderEventConsumer {
       }
     });
 
-    await kafkaClient.subscribe(TOPICS.ORDER_CANCELLED, async (message) => {
+    await kafkaClient.subscribe('inventory-service-group', [TOPICS.ORDER_CANCELLED], async (payload) => {
+      const message = payload.message.value ? JSON.parse(payload.message.value.toString()) : {};
       try {
         const event = message as any;
         logger.info('Received order.cancelled event', { orderId: event.data.orderId });

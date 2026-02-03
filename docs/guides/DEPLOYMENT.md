@@ -222,13 +222,18 @@ kubectl get svc mfe-search
 kubectl logs -f deployment/mfe-search
 ```
 
+
 ## AWS Deployment
 
 ### S3 + CloudFront (Static Export)
 
+> **Note:** Only MFEs that do NOT use server-side rendering (SSR) or custom API routes can be deployed as static exports to S3/CloudFront. Typically, MFEs like `mfe-search`, `mfe-wishlist`, and `mfe-reviews` are suitable for static export. MFEs like `mfe-shell`, `mfe-products`, and `mfe-cart` may require SSR or API routes and should use ECS (Docker).
+
+#### For Static MFEs (e.g., mfe-search, mfe-wishlist, mfe-reviews):
+
 1. **Export Next.js app**
 
-Add to `next.config.js`:
+Add to `apps/mfe-<name>/next.config.js`:
 ```javascript
 module.exports = {
   output: 'export',
@@ -240,46 +245,49 @@ module.exports = {
 
 2. **Build and export**
 ```bash
-cd apps/mfe-search
+cd apps/mfe-<name>
 npm run build
 ```
 
 3. **Upload to S3**
 ```bash
-aws s3 sync out/ s3://mfe-search-bucket --delete
+aws s3 sync out/ s3://mfe-<name>-bucket --delete
 ```
 
 4. **Create CloudFront distribution**
 ```bash
 aws cloudfront create-distribution \
-  --origin-domain-name mfe-search-bucket.s3.amazonaws.com \
+  --origin-domain-name mfe-<name>-bucket.s3.amazonaws.com \
   --default-root-object index.html
 ```
+
+#### For SSR/API MFEs (e.g., mfe-shell, mfe-products, mfe-cart):
 
 ### ECS (Docker)
 
 1. **Create ECR repository**
 ```bash
-aws ecr create-repository --repository-name mfe-search
+aws ecr create-repository --repository-name mfe-<name>
 ```
 
 2. **Build and push image**
 ```bash
 aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin <account-id>.dkr.ecr.us-east-1.amazonaws.com
 
-docker build -t mfe-search .
-docker tag mfe-search:latest <account-id>.dkr.ecr.us-east-1.amazonaws.com/mfe-search:latest
-docker push <account-id>.dkr.ecr.us-east-1.amazonaws.com/mfe-search:latest
+cd apps/mfe-<name>
+docker build -t mfe-<name> .
+docker tag mfe-<name>:latest <account-id>.dkr.ecr.us-east-1.amazonaws.com/mfe-<name>:latest
+docker push <account-id>.dkr.ecr.us-east-1.amazonaws.com/mfe-<name>:latest
 ```
 
 3. **Create ECS task definition**
 ```json
 {
-  "family": "mfe-search",
+  "family": "mfe-<name>",
   "containerDefinitions": [
     {
-      "name": "mfe-search",
-      "image": "<account-id>.dkr.ecr.us-east-1.amazonaws.com/mfe-search:latest",
+      "name": "mfe-<name>",
+      "image": "<account-id>.dkr.ecr.us-east-1.amazonaws.com/mfe-<name>:latest",
       "portMappings": [
         {
           "containerPort": 3001,
@@ -307,8 +315,8 @@ docker push <account-id>.dkr.ecr.us-east-1.amazonaws.com/mfe-search:latest
 ```bash
 aws ecs create-service \
   --cluster production \
-  --service-name mfe-search \
-  --task-definition mfe-search \
+  --service-name mfe-<name> \
+  --task-definition mfe-<name> \
   --desired-count 2 \
   --launch-type FARGATE
 ```

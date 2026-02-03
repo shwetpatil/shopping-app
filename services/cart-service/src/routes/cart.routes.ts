@@ -1,9 +1,9 @@
-import { Router } from 'express';
+import { Router, Router as ExpressRouter } from 'express';
 import { CartController } from '../controllers/cart.controller';
 import { validate, requireAuth } from '@shopping-app/common';
 import { addToCartSchema, updateCartItemSchema } from '../validators/cart.validator';
 
-const router = Router();
+const router: ExpressRouter = Router();
 const cartController = new CartController();
 
 router.get('/', requireAuth, cartController.getCart);

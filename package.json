@@ -23,6 +23,7 @@
     "packages/*"
   ],
   "scripts": {
+    "config:generate-env": "ts-node scripts/config/generate-env.ts",
     "dev": "./start-all.sh",
     "dev:all": "concurrently \"npm:dev:*\" --kill-others-on-fail",
     "dev:shell": "cd apps/mfe-shell && npm run dev",
@@ -36,7 +37,8 @@
     "services:stop": "./scripts/dev/stop-services.sh",
     "services:check": "./scripts/test/check-status.sh",
     "build": "npm run build:packages && npm run build:apps",
-    "build:packages": "npm run build --workspace=packages/*",
+    "build:packages": "bash ./scripts/build-all-packages.sh",
+    "build:all": "bash ./scripts/build-all.sh",
     "build:apps": "npm run build:shell && npm run build:cart && npm run build:products && npm run build:reviews && npm run build:search && npm run build:wishlist",
     "build:shell": "cd apps/mfe-shell && npm run build",
     "build:cart": "cd apps/mfe-cart && npm run build",
@@ -53,7 +55,7 @@
     "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md,yml,yaml}\"",
     "typecheck": "npm run typecheck --workspaces --if-present",
     "clean": "npm run clean:all",
-    "clean:all": "rm -rf node_modules apps/*/node_modules packages/*/node_modules apps/*/.next apps/*/.turbo packages/*/dist",
+    "clean:all": "rm -rf node_modules apps/*/node_modules packages/*/node_modules services/*/node_modules apps/*/.next apps/*/.turbo packages/*/dist services/*/dist",
     "clean:cache": "rm -rf apps/*/.next apps/*/.turbo packages/*/dist",
     "docker:build": "docker-compose -f docker-compose.mfe.yml build",
     "docker:up": "docker-compose -f docker-compose.mfe.yml up",
@@ -67,6 +69,7 @@
   "devDependencies": {
     "@faker-js/faker": "^10.1.0",
     "@types/bcryptjs": "^2.4.6",
+    "@types/express": "^4.17.25",
     "@types/node": "^20.10.0",
     "@typescript-eslint/eslint-plugin": "^6.13.0",
     "@typescript-eslint/parser": "^6.13.0",
@@ -75,6 +78,7 @@
     "eslint": "^8.54.0",
     "eslint-config-prettier": "^9.0.0",
     "prettier": "^3.1.0",
+    "ts-node": "^10.9.2",
     "tsx": "^4.21.0",
     "turbo": "^1.11.0",
     "typescript": "^5.3.0"
@@ -82,5 +86,9 @@
   "engines": {
     "node": ">=18.0.0",
     "npm": ">=9.0.0"
+  },
+  "dependencies": {
+    "@prisma/client": "^7.2.0",
+    "dotenv": "^16.3.1"
   }
 }

@@ -1,13 +1,13 @@
 'use client';
 
+
+// eslint-disable-next-line no-console
 import { Star, ThumbsUp } from 'lucide-react';
 import { useState } from 'react';
 import type { ProductReviewsProps } from '@shopping-app/mfe-contracts';
 
 export function ProductReviews({ 
   productId,
-  limit,
-  sortBy = 'recent',
   allowWrite = true,
   className 
 }: ProductReviewsProps) {
@@ -17,6 +17,7 @@ export function ProductReviews({
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
 
+  // eslint-disable-next-line no-console
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (rating > 0) {

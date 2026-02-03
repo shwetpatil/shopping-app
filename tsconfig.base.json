@@ -1,5 +1,10 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@shopping-app/config": ["packages/config/dist/index.js"],
+      "@shopping-app/config/*": ["packages/config/dist/*"]
+    },
     "target": "ES2022",
     "module": "commonjs",
     "lib": ["ES2022"],

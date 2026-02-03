@@ -2,4 +2,3 @@ packages:
   - 'services/*'
   - 'packages/*'
   - 'apps/*'
-  - 'config'

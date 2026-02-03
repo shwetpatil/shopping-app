@@ -30,7 +30,7 @@ export function expectInteractiveRole(element: HTMLElement) {
 /**
  * Test semantic HTML usage
  */
-export function expectSemanticHTML(queries: any) {
+export function expectSemanticHTML(queries: { queryByRole: (role: string) => HTMLElement | null }) {
   // Check for semantic landmarks
   const nav = queries.queryByRole('navigation');
   const main = queries.queryByRole('main');

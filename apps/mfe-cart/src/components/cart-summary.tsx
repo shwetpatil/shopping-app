@@ -2,7 +2,7 @@
 
 import { Trash2, Plus, Minus } from 'lucide-react';
 import { useState, useEffect } from 'react';
-import type { CartSummaryProps, CartItem } from '@shopping-app/mfe-contracts';
+import type { CartSummaryProps } from '@shopping-app/mfe-contracts';
 import { useMFEEvent, useMFEPublish } from '@shopping-app/mfe-contracts';
 
 const sampleCartItems = [
@@ -50,7 +50,7 @@ export function CartSummary({ variant = 'full', showItems = true, onCheckout, on
 
   // Sync cart state whenever it changes
   useEffect(() => {
-    const itemCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const total = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     publishCartSync({ items: cartItems as any, total });
   }, [cartItems, publishCartSync]);

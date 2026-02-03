@@ -1,3 +1,5 @@
+'use client';
+// ...existing code...
 import { SearchBar } from '../components/search-bar';
 import { FilterPanel } from '../components/filter-panel';
 

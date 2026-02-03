@@ -8,7 +8,6 @@ import { useMFEPublish } from '@shopping-app/mfe-contracts';
 export function WishlistButton({ 
   productId, 
   variant = 'icon', 
-  size = 'md',
   className = '',
   onToggle,
   isWishlisted = false 

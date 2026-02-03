@@ -8,7 +8,7 @@ import { initializeWebSocket } from './websocket';
 
 dotenv.config();
 
-const PORT = process.env.PORT || SERVICE_PORTS.PRODUCT;
+const PORT = process.env.PORT || config.SERVICE_PORTS.PRODUCT;
 
 const startServer = async () => {
   try {

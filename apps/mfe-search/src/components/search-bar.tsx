@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Search, X, SlidersHorizontal } from 'lucide-react';
+import { Search, X } from 'lucide-react';
 import type { SearchBarProps } from '@shopping-app/mfe-contracts';
 import { useMFEPublish } from '@shopping-app/mfe-contracts';
 

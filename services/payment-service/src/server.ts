@@ -9,7 +9,7 @@ dotenv.config();
 
 import { SERVICE_PORTS } from '@shopping-app/config';
 
-const PORT = process.env.PORT || SERVICE_PORTS.PAYMENT;
+const PORT = process.env.PORT || config.SERVICE_PORTS.PAYMENT;
 
 const startServer = async () => {
   try {

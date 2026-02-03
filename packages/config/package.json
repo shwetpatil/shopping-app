@@ -1,0 +1,24 @@
+{
+    "name": "@shopping-app/config",
+    "version": "1.0.0",
+    "description": "Centralized configuration for ports and URLs",
+    "main": "dist/index.js",
+    "private": true,
+    "types": "dist/index.d.ts",
+    "exports": {
+        ".": {
+            "import": "./dist/index.js",
+            "require": "./dist/index.js",
+            "types": "./dist/index.d.ts"
+        },
+        "./ports": {
+            "import": "./dist/ports.js",
+            "require": "./dist/ports.js",
+            "types": "./dist/ports.d.ts"
+        }
+    },
+    "scripts": {
+        "build": "tsc",
+        "start": "node dist/index.js"
+    }
+}

@@ -1,7 +1,7 @@
 import express, { Application, Request, Response } from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
-import rateLimit from 'express-rate-limit';
+import rateLimit, { RateLimitRequestHandler } from 'express-rate-limit';
 import { errorHandler, requestLogger } from '@shopping-app/common';
 import inventoryRoutes from './routes/inventory.routes';
 
@@ -15,7 +15,7 @@ app.use(
   })
 );
 
-const limiter = rateLimit({
+const limiter: RateLimitRequestHandler = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 200,
   message: 'Too many requests from this IP, please try again later.',
@@ -26,7 +26,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(requestLogger);
 
-app.get('/health', (req: Request, res: Response) => {
+app.get('/health', (_req: Request, res: Response) => {
   res.status(200).json({ status: 'healthy', service: 'inventory-service' });
 });
 

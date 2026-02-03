@@ -19,18 +19,21 @@ const isProduction = process.env.NODE_ENV === 'production';
 export const logger: Logger = {
   info: (message: string, ...args: unknown[]) => {
     if (isDevelopment) {
+      // eslint-disable-next-line no-console
       console.log(`[INFO] ${message}`, ...args);
     }
   },
 
   warn: (message: string, ...args: unknown[]) => {
     if (isDevelopment) {
+      // eslint-disable-next-line no-console
       console.warn(`[WARN] ${message}`, ...args);
     }
   },
 
   error: (message: string, ...args: unknown[]) => {
     if (isDevelopment) {
+      // eslint-disable-next-line no-console
       console.error(`[ERROR] ${message}`, ...args);
     } else if (isProduction) {
       // TODO: Send to error monitoring service (Sentry, DataDog, etc.)
@@ -40,6 +43,7 @@ export const logger: Logger = {
 
   debug: (message: string, ...args: unknown[]) => {
     if (isDevelopment && process.env.NEXT_PUBLIC_DEBUG === 'true') {
+      // eslint-disable-next-line no-console
       console.debug(`[DEBUG] ${message}`, ...args);
     }
   },

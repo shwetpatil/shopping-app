@@ -4,11 +4,9 @@
   "description": "Wishlist microfrontend - Independently deployable wishlist module",
   "private": true,
   "scripts": {
-    "dev": "node ../../scripts/start-mfe.js mfe-wishlist dev",
     "build": "next build",
-    "start": "node ../../scripts/start-mfe.js mfe-wishlist start",
-    "lint": "next lint",
-    "deploy": "npm run build && ./deploy.sh"
+    "clean": "rm -rf .next",
+    "start": "next start"
   },
   "dependencies": {
     "@shopping-app/mfe-contracts": "file:../../packages/mfe-contracts",

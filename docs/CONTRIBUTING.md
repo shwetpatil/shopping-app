@@ -2,9 +2,10 @@
 
 Thank you for your interest in contributing to the Shopping App!
 
+
 ## Project Structure
 
-This is a B2B microfrontend e-commerce platform with independently deployable modules:
+This is a B2B microfrontend e-commerce platform with independently deployable modules and a robust backend microservices architecture:
 
 ```
 shopping-app/
@@ -15,9 +16,29 @@ shopping-app/
 │   ├── mfe-reviews/   # Reviews module
 │   ├── mfe-products/  # Products catalog
 │   └── mfe-cart/      # Cart & checkout
-├── services/          # Backend microservices
+├── services/          # Backend microservices (see Backend Architecture below)
 └── packages/          # Shared libraries
+
+---
+
+## Backend Architecture (Microservices)
+
+Our backend follows modern microservices best practices for scalability, resilience, and maintainability:
+
+- **Database per Service**: Each service (orders, payments, inventory, etc.) owns its own database. No direct cross-service DB access.
+- **API Gateway**: All client requests go through a gateway for authentication, rate limiting, logging, and routing.
+- **Event-Driven Communication**: Services communicate asynchronously via events (using a message bus), enabling loose coupling and eventual consistency.
+- **Saga Pattern**: Distributed transactions are managed using the Saga pattern (choreography), ensuring data consistency without distributed locks.
+- **Resilience**: Circuit breakers, retries, and timeouts are used to handle failures gracefully.
+- **Security**: JWT authentication, per-endpoint rate limiting, and CORS are enforced at the gateway and service level.
+- **Observability**: Centralized logging, metrics, and health checks for all services.
+- **Technology Flexibility**: Each service can use the most appropriate language or database for its domain.
+
+For details, see [Backend Best Practices](architecture/BACKEND_BEST_PRACTICES.md).
 ```
+
+
+---
 
 ## Development Setup
 
