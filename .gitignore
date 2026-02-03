@@ -10,6 +10,11 @@ coverage/
 dist/
 build/
 
+# Next.js
+.next/
+*.app-build-manifest.json
+out/
+
 # Misc
 .DS_Store
 *.pem

@@ -4,6 +4,7 @@
   "description": "Reviews microfrontend - Independently deployable reviews module",
   "private": true,
   "scripts": {
+    "dev": "next dev",
     "build": "next build",
     "clean": "rm -rf .next",
     "start": "next start"

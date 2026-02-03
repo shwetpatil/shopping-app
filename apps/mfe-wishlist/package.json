@@ -4,6 +4,7 @@
   "description": "Wishlist microfrontend - Independently deployable wishlist module",
   "private": true,
   "scripts": {
+    "dev": "next dev",
     "build": "next build",
     "clean": "rm -rf .next",
     "start": "next start"

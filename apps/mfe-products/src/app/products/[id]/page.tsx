@@ -1,6 +1,7 @@
 'use client';
 
 import { useProduct } from '@/hooks/use-product-queries';
+import { useMFEPublish } from '@shopping-app/mfe-contracts';
 import Image from 'next/image';
 import { ArrowLeftIcon, ShoppingCartIcon, HeartIcon, ShareIcon } from '@heroicons/react/24/outline';
 import { HeartIcon as HeartIconSolid } from '@heroicons/react/24/solid';
@@ -18,6 +19,8 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
   const [isWishlisted, setIsWishlisted] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
+  const [cartMessage, setCartMessage] = useState('');
+  const publishCartAdd = useMFEPublish('cart:add');
 
   if (error) {
     return (
@@ -59,19 +62,17 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
   const images = product.imageUrl ? [product.imageUrl] : [];
   
   const handleAddToCart = () => {
-    // TODO: Emit event to Cart MFE
-    // In a real MFE setup, this would dispatch a custom event or call a shared cart service
-    // Example: window.dispatchEvent(new CustomEvent('addToCart', { detail: { product, quantity } }))
-    
-    // eslint-disable-next-line no-console
-    console.log('🛒 Add to Cart event (to be handled by Cart MFE):', { 
-      productId: product.id, 
-      productName: product.name,
+    // Publish cart:add event to Cart MFE
+    publishCartAdd({
+      productId: product.id,
       quantity,
-      price: product.price 
     });
+
+    // Show success message
+    setCartMessage(`✅ Added ${quantity} ${product.name} to cart!`);
     
-    alert(`Added ${quantity} ${product.name} to cart!\n\nNote: Cart functionality will be handled by Cart MFE.`);
+    // Clear message after 3 seconds
+    setTimeout(() => setCartMessage(''), 3000);
   };
 
   const handleWishlistToggle = () => {
@@ -101,6 +102,13 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      {/* Success Message */}
+      {cartMessage && (
+        <div className="fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-pulse">
+          {cartMessage}
+        </div>
+      )}
+      
       {/* Back Button */}
       <Link 
         href="/"
